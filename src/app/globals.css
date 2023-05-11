@@ -61,9 +61,23 @@ body {
   line-height: 80px;
   margin: 10px auto;
   margin-top: 50rem;
+  border-radius: 20px;
 }
 
 .start-button a {
   padding: 30px 56px;
   color: white;
+}
+
+.select-box {
+  position: absolute;
+  left: 50px;
+  top: 1000px;
+}
+
+.select-box button {
+  width: 300px;
+  margin-right: 10px;
+  font-size: 40px;
+  font-weight: bold;
 }
