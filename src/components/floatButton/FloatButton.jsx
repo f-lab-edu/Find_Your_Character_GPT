@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const FloatButton = ({ buttonDesc }) => {
+  console.log(buttonDesc);
   return <FloatBtn>{buttonDesc}</FloatBtn>;
 };
 

@@ -13,7 +13,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) =
           <StartButton startButtonDesc={startButtonDesc} />
         </Link>
       ) : (
-        <FloatButton buttonDesc={buttonDesc} />
+        buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} />)
       )}
     </DescBox>
   );
