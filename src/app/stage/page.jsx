@@ -1,28 +1,14 @@
 "use client";
 import React from "react";
-import { ContentFont } from "../../components/contentFont/ContentFont";
-import { FloatButton } from "../../components/floatButton/FloatButton";
-import { TitleFont } from "../../components/titleFont/TitleFont";
-import { ProgressBox } from "../../components/progressBar/ProgressBar";
+import { Logo } from "@/components/Logo/Logo";
+import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 
 export default function StagePage() {
   return (
     <>
       <div>
-        <div>
-          <ProgressBox />
-        </div>
-        <TitleFont desc={"stage1"} size="30" />
-        <ContentFont
-          desc={"당신은 미궁에 빠졌습니다. 당신의 선택은?"}
-          size="30"
-        />
-      </div>
-      <div>
-        <FloatButton desc={"싸운다"} />
-        <FloatButton desc={"도망간다"} />
-        <FloatButton desc={"도망간다"} />
-        <FloatButton desc={"도망간다"} />
+        <Logo />
+        <GameDescBox descHeader={"스테이지"} desc={"설명설명설명"} startButtonDesc={""} buttonDesc={["싸운다", "도망간다", "멍때린다", "아몰랑"]} />
       </div>
     </>
   );

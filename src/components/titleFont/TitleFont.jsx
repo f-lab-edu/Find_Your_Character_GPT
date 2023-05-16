@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const TitleFont = ({ margin, size, desc }) => {
+export const TitleFont = ({ margin, desc, size }) => {
   return (
     <Title margin={margin} size={size}>
       {desc}
