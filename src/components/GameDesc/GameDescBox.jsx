@@ -49,5 +49,5 @@ const Desc = styled.p`
   font-weight: bold;
   line-height: 1.5;
   z-index: 10;
-  margin-bottom: 40em;
+  margin-bottom: 50em;
 `;
