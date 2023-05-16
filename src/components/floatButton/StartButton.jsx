@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
-export const FloatButton = ({ buttonDesc }) => {
-  return <FloatBtn>{buttonDesc}</FloatBtn>;
+export const StartButton = ({ startButtonDesc }) => {
+  return <StartBtn>{startButtonDesc}</StartBtn>;
 };
 
-const FloatBtn = styled.button`
-  width: 130px;
+const StartBtn = styled.button`
+  width: 8.1em;
   font-weight: 600;
-  font-size: 18px;
+  font-size: 1.13em;
   text-align: center;
   line-height: 50px;
   color: #fff;

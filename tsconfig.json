@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Logo/Logo.jsx", "src/components/GameDesc/GameDescHeader.jsx", "src/components/GameDesc/GameDescBox.jsx"],
   "exclude": ["node_modules"]
 }
