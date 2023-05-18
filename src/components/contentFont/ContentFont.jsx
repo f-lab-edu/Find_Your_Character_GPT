@@ -13,7 +13,7 @@ const Content = styled.p`
   color: white;
   font-family: BookkMyungjo-Bd;
   font-size: ${({ size }) => size + "px"};
-  text-align: center;
+  line-height: 1.8;
 
   @media (max-width: 800px) {
     font-size: ${({ size }) => size / 6 + "vw"};
