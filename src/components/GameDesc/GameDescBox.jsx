@@ -48,7 +48,7 @@ const DescBox = styled.div`
 const DescHeader = styled.h2`
   margin-bottom: 2em;
   z-index: 10;
-  font-weight: 900;
+  font-weight: 800;
   font-size: 2em;
 `;
 
@@ -56,5 +56,5 @@ const Desc = styled.p`
   line-height: 1.5;
   z-index: 10;
   font-size: 1.3em;
-  font-weight: 900;
+  font-weight: 400;
 `;
