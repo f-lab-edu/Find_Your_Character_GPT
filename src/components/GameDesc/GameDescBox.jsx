@@ -5,9 +5,11 @@ import Link from "next/link";
 
 export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) => {
   return (
-    <DescBox>
-      <DescHeader>{descHeader}</DescHeader>
-      <Desc>{desc}</Desc>
+    <DescWrapper>
+      <DescBox>
+        <DescHeader>{descHeader}</DescHeader>
+        <Desc>{desc}</Desc>
+      </DescBox>
       {startButtonDesc !== "" ? (
         <Link href="/stage">
           <StartButton startButtonDesc={startButtonDesc} />
@@ -15,17 +17,21 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) =
       ) : (
         buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} />)
       )}
-    </DescBox>
+    </DescWrapper>
   );
 };
 
+const DescWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const DescBox = styled.div`
   padding-top: 6em;
   margin: 0 auto;
   text-align: center;
   max-width: 50em;
   height: auto;
-  position: relative;
   background-image: url(../img/harry.jpeg);
   background-size: cover;
   background-repeat: no-repeat;
@@ -40,14 +46,15 @@ const DescBox = styled.div`
 `;
 
 const DescHeader = styled.h2`
-  margin-bottom: 3em;
+  margin-bottom: 2em;
   z-index: 10;
+  font-weight: 800;
+  font-size: 2em;
 `;
 
 const Desc = styled.p`
-  font-size: 1em;
-  font-weight: bold;
   line-height: 1.5;
   z-index: 10;
-  margin-bottom: 50em;
+  font-size: 1.3em;
+  font-weight: 400;
 `;
