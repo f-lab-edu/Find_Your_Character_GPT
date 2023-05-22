@@ -1,7 +1,12 @@
+import Link from "next/link";
 import styled from "styled-components";
 
 export const StartButton = ({ startButtonDesc }) => {
-  return <StartBtn>{startButtonDesc}</StartBtn>;
+  return (
+    <Link href="/stage">
+      <StartBtn>{startButtonDesc}</StartBtn>
+    </Link>
+  );
 };
 
 const StartBtn = styled.button`
@@ -17,6 +22,10 @@ const StartBtn = styled.button`
   background: #25809f;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+
+  <a > {
+    padding: 100px;
+  }
 
   &:hover {
     margin-left: 0px;

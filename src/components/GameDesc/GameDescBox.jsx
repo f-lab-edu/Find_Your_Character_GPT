@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../../components/floatButton/FloatButton";
 import { StartButton } from "../../components/floatButton/StartButton";
-import Link from "next/link";
 
 export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) => {
   return (
@@ -9,23 +8,13 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) =
       <DescBox>
         <DescHeader>{descHeader}</DescHeader>
         <Desc>{desc}</Desc>
+        <ButtonBox>{startButtonDesc !== "" ? <StartButton startButtonDesc={startButtonDesc} /> : buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} />)}</ButtonBox>
       </DescBox>
-      {startButtonDesc !== "" ? (
-        <Link href="/stage">
-          <StartButton startButtonDesc={startButtonDesc} />
-        </Link>
-      ) : (
-        buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} />)
-      )}
     </DescWrapper>
   );
 };
 
-const DescWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+const DescWrapper = styled.div``;
 const DescBox = styled.div`
   padding-top: 6em;
   margin: 0 auto;
@@ -57,4 +46,12 @@ const Desc = styled.p`
   z-index: 10;
   font-size: 1.3em;
   font-weight: 400;
+  padding: 0 4em;
+`;
+
+const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 15em;
 `;

@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <>
       <Logo />
-      <GameDescBox descHeader={"스테이지"} desc={"설명설명설명"} startButtonDesc={"Start"} buttonDesc={""} />
+      <GameDescBox descHeader={"스테이지"} desc={"설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명"} startButtonDesc={"Start"} buttonDesc={""} />
     </>
   );
 }
