@@ -1,10 +1,10 @@
 import styled, { keyframes } from "styled-components";
 
-export const GlowFont = ({ margin, desc, size }) => {
+export const GlowText = ({ margin, desc, size }) => {
   return (
-    <GlowText margin={margin} size={size}>
+    <GlowTxt margin={margin} size={size}>
       {desc}
-    </GlowText>
+    </GlowTxt>
   );
 };
 const glow = keyframes`
@@ -16,7 +16,7 @@ const glow = keyframes`
     text-shadow: 0 0 20px #fff, 0 0 30px #8990fb, 0 0 40px #8990fb, 0 0 50px #8990fb;
   }
 `;
-const GlowText = styled.span`
+const GlowTxt = styled.span`
   margin: ${({ margin }) => margin + "px"} 0;
   color: white;
   font-size: ${({ size }) => size + "px"};
