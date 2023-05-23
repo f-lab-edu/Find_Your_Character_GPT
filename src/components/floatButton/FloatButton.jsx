@@ -24,6 +24,7 @@ const FloatBtn = styled.button`
     transform: scale(1.1, 1.1);
     -ms-transform: scale(1.1, 1.1);
     -webkit-transform: scale(1.1, 1.1);
+    will-change: transform;
     box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
   }
 `;
