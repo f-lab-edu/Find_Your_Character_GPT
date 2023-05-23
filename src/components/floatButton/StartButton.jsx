@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const StartButton = ({ startButtonDesc }) => {
   return (
-    <Link href="/stage">
+    <Link href="/stage/1">
       <StartBtn>{startButtonDesc}</StartBtn>
     </Link>
   );
