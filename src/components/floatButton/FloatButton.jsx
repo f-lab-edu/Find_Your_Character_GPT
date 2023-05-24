@@ -1,7 +1,12 @@
+import Link from "next/link";
 import styled from "styled-components";
 
-export const FloatButton = ({ buttonDesc }) => {
-  return <FloatBtn>{buttonDesc}</FloatBtn>;
+export const FloatButton = ({ buttonDesc, stageNumber }) => {
+  return (
+    <Link href={`stage/${Number(stageNumber) + 1}`}>
+      <FloatBtn>{buttonDesc}</FloatBtn>
+    </Link>
+  );
 };
 
 const FloatBtn = styled.button`

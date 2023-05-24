@@ -2,13 +2,15 @@ import { styled } from "styled-components";
 import { FloatButton } from "../../components/floatButton/FloatButton";
 import { StartButton } from "../../components/floatButton/StartButton";
 
-export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) => {
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }) => {
   return (
     <DescWrapper>
       <DescBox>
         <DescHeader>{descHeader}</DescHeader>
         <Desc>{desc}</Desc>
-        <ButtonBox>{startButtonDesc !== "" ? <StartButton startButtonDesc={startButtonDesc} /> : buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} />)}</ButtonBox>
+        <ButtonBox>
+          {startButtonDesc !== "" ? <StartButton startButtonDesc={startButtonDesc} /> : buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} />)}
+        </ButtonBox>
       </DescBox>
     </DescWrapper>
   );
