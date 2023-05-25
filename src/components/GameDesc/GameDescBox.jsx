@@ -1,57 +1,65 @@
 import { styled } from "styled-components";
-import { FloatButton } from "../../components/floatButton/FloatButton";
-import { StartButton } from "../../components/floatButton/StartButton";
+import { FloatButton } from "../floatButton/FloatButton";
+import { StartButton } from "../floatButton/StartButton";
 
-export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }) => {
+export const GameDescBox = ({
+  descHeader,
+  desc,
+  startButtonDesc,
+  buttonDesc,
+}) => {
   return (
     <DescWrapper>
       <DescBox>
         <DescHeader>{descHeader}</DescHeader>
-        <Desc>{desc}</Desc>
-        <ButtonBox>{startButtonDesc !== "" ? <StartButton startButtonDesc={startButtonDesc} /> : buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} />)}</ButtonBox>
+        <DescTextBox>
+          {" "}
+          <Desc>{desc}</Desc>
+        </DescTextBox>
+        <ButtonBox>
+          {startButtonDesc !== "" ? (
+            <StartButton startButtonDesc={startButtonDesc} />
+          ) : (
+            buttonDesc.map((ele, i) => (
+              <FloatButton buttonDesc={buttonDesc[i]} key={i} />
+            ))
+          )}
+        </ButtonBox>
       </DescBox>
     </DescWrapper>
   );
 };
 
-const DescWrapper = styled.div``;
-const DescBox = styled.div`
-  padding-top: 6em;
-  margin: 0 auto;
-  text-align: center;
-  max-width: 50em;
-  height: auto;
-  background-image: url(../img/harry.jpeg);
-  background-size: cover;
-  background-repeat: no-repeat;
+const DescWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  padding: 50px;
+  background-image: url("img/harry.jpeg");
   background-position: center;
-  position: absolute;
-  opacity: 85%;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: -9999;
+  background-size: cover;
 `;
-
+const DescBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 70%;
+  padding: 20px;
+`;
 const DescHeader = styled.h2`
-  margin-bottom: 2em;
-  z-index: 10;
-  font-weight: 800;
-  font-size: 2em;
+  font-size: 30px;
 `;
-
+const DescTextBox = styled.div`
+  height: 60%;
+`;
 const Desc = styled.p`
-  line-height: 1.5;
-  z-index: 10;
-  font-size: 1.3em;
-  font-weight: 400;
-  padding: 0 4em;
+  font-size: 18px;
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 15em;
 `;
