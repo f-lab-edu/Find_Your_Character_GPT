@@ -17,7 +17,7 @@ export const GameDescBox = ({
           <Desc>{desc}</Desc>
         </DescTextBox>
         <ButtonBox>
-          {startButtonDesc !== "" ? (
+          {!!startButtonDesc ? (
             <StartButton startButtonDesc={startButtonDesc} />
           ) : (
             buttonDesc.map((ele, i) => (
