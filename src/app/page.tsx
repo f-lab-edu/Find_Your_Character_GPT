@@ -1,11 +1,13 @@
 "use client";
-import { GameDescBox } from "@/components/gameDesc/GameDescBox";
-import { stageNumber } from "../../constant/constants";
+import { GameDescBox } from "@/components/GameDesc/GameDescBox";
+import { Logo } from "@/components/Logo/Logo";
+import { startPage } from "../../constant/constants";
 
 export default function Home() {
   return (
     <>
-      <GameDescBox descHeader={stageNumber[0]} desc={"설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명설명"} startButtonDesc={"Start"} buttonDesc={""} />
+      <Logo />
+      <GameDescBox descHeader={startPage.startHeader} desc={startPage.startDesc} startButtonDesc={startPage.startButton} buttonDesc={""} stageNumber="" />
     </>
   );
 }

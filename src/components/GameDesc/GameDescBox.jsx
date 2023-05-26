@@ -7,21 +7,23 @@ export const GameDescBox = ({
   desc,
   startButtonDesc,
   buttonDesc,
+  stageNumber,
 }) => {
   return (
     <DescWrapper>
       <DescBox>
         <DescHeader>{descHeader}</DescHeader>
-        <DescTextBox>
-          {" "}
-          <Desc>{desc}</Desc>
-        </DescTextBox>
+        <Desc>{desc}</Desc>
         <ButtonBox>
           {!!startButtonDesc ? (
             <StartButton startButtonDesc={startButtonDesc} />
           ) : (
             buttonDesc.map((ele, i) => (
-              <FloatButton buttonDesc={buttonDesc[i]} key={i} />
+              <FloatButton
+                buttonDesc={buttonDesc[i]}
+                key={i}
+                stageNumber={stageNumber}
+              />
             ))
           )}
         </ButtonBox>
