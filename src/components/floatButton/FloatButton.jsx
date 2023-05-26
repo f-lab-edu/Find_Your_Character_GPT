@@ -1,10 +1,20 @@
 import Link from "next/link";
 import styled from "styled-components";
+import { generateText } from "../../app/api/generate";
 
 export const FloatButton = ({ buttonDesc, stageNumber }) => {
+  const handleClick = async () => {
+    try {
+      const response = await generateText(buttonDesc);
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Link href={`stage/${Number(stageNumber) + 1}`}>
-      <FloatBtn>{buttonDesc}</FloatBtn>
+      <FloatBtn onClick={handleClick}>{buttonDesc}</FloatBtn>
     </Link>
   );
 };
