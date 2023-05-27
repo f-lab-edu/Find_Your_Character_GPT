@@ -3,18 +3,30 @@ import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
 
 export const FloatButton = ({ buttonDesc, stageNumber }) => {
-  const handleClick = async () => {
+  async function clickHander(e) {
+    e.preventDefault();
     try {
-      const response = await generateText(buttonDesc);
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ value: buttonDesc }),
+      });
       console.log(response);
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
     } catch (error) {
       console.error(error);
+      alert(error.message);
     }
-  };
+  }
 
   return (
     <Link href={`stage/${Number(stageNumber) + 1}`}>
-      <FloatBtn onClick={handleClick}>{buttonDesc}</FloatBtn>
+      <FloatBtn onClick={clickHander}>{buttonDesc}</FloatBtn>
     </Link>
   );
 };
