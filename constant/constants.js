@@ -14,3 +14,5 @@ export const buttonDescription = [
   ["도망5", "싸움5", "몰라5", "뭐해5"],
   ["도망6", "싸움6", "몰라6", "뭐해6"],
 ];
+
+export const stageResult = [];

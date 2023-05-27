@@ -1,10 +1,10 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
+import { stageResult } from "../../../constant/constants";
 
 export const FloatButton = ({ buttonDesc, stageNumber }) => {
-  async function clickHander(e) {
-    e.preventDefault();
+  async function clickHander() {
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -18,14 +18,13 @@ export const FloatButton = ({ buttonDesc, stageNumber }) => {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      result.push(result);
-      console.log(result);
+      stageResult.push(buttonDesc);
+      console.log(stageResult);
     } catch (error) {
       console.error(error);
       alert(error.message);
     }
   }
-
   return (
     <Link href={`stage/${Number(stageNumber) + 1}`}>
       <FloatBtn onClick={clickHander}>{buttonDesc}</FloatBtn>
