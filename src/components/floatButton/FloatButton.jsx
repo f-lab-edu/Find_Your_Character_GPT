@@ -13,11 +13,13 @@ export const FloatButton = ({ buttonDesc, stageNumber }) => {
         },
         body: JSON.stringify({ value: buttonDesc }),
       });
-      console.log(response);
       const data = await response.json();
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
+
+      result.push(result);
+      console.log(result);
     } catch (error) {
       console.error(error);
       alert(error.message);
