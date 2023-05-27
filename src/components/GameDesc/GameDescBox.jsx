@@ -9,7 +9,13 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
         <DescHeader>{descHeader}</DescHeader>
         <Desc>{desc}</Desc>
         <ButtonBox>
-          {startButtonDesc !== "" ? <StartButton startButtonDesc={startButtonDesc} /> : buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} />)}
+          {startButtonDesc !== "" ? (
+            <StartButton startButtonDesc={startButtonDesc} />
+          ) : Array.isArray(buttonDesc) ? (
+            buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} />)
+          ) : (
+            <p>No button descriptions available</p>
+          )}
         </ButtonBox>
       </DescBox>
     </DescWrapper>
