@@ -7,7 +7,6 @@ export const ContentFont = ({ desc }) => {
 const Content = styled.p`
   margin: 30px 0;
   color: white;
-  font-family: BookkMyungjo-Bd;
   font-size: 15px;
   line-height: 1.8;
 
