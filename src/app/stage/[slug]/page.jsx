@@ -10,7 +10,6 @@ export default function StagePage({ params }) {
   return (
     <>
       <div>
-        <Logo />
         <GameDescBox descHeader={`스테이지${stageNumber}`} desc={"설명설명설명"} startButtonDesc={""} buttonDesc={buttonDescription[+stageNumber - 1]} stageNumber={stageNumber} />
       </div>
     </>
