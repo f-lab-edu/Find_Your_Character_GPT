@@ -10,46 +10,26 @@ export const GameDescBox = ({
   stageNumber,
 }) => {
   return (
-    <DescWrapper>
-      <DescBox>
-        <DescHeader>{descHeader}</DescHeader>
-        <Desc>{desc}</Desc>
-        <ButtonBox>
-          {!!startButtonDesc ? (
-            <StartButton startButtonDesc={startButtonDesc} />
-          ) : (
-            buttonDesc.map((ele, i) => (
-              <FloatButton
-                buttonDesc={buttonDesc[i]}
-                key={i}
-                stageNumber={stageNumber}
-              />
-            ))
-          )}
-        </ButtonBox>
-      </DescBox>
-    </DescWrapper>
+    <>
+      <DescHeader>{descHeader}</DescHeader>
+      <Desc>{desc}</Desc>
+      <ButtonBox>
+        {!!startButtonDesc ? (
+          <StartButton startButtonDesc={startButtonDesc} />
+        ) : (
+          buttonDesc.map((ele, i) => (
+            <FloatButton
+              buttonDesc={buttonDesc[i]}
+              key={i}
+              stageNumber={stageNumber}
+            />
+          ))
+        )}
+      </ButtonBox>
+    </>
   );
 };
 
-const DescWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 600px;
-  padding: 50px;
-  background-image: url("img/harry.jpeg");
-  background-position: center;
-  background-size: cover;
-`;
-const DescBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 70%;
-  padding: 20px;
-`;
 const DescHeader = styled.h2`
   font-size: 30px;
 `;
