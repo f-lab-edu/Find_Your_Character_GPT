@@ -2,13 +2,9 @@ import Link from "next/link";
 import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
 import { stageResult } from "../../../constant/constants";
-import { useState } from "react";
 
 export const FloatButton = ({ buttonDesc, stageNumber }) => {
-  const [isLoading, setIsLoading] = useState(false);
-
   async function clickHanderGPT() {
-    stageResult.push(buttonDesc);
     try {
       setIsLoading(true);
       const response = await fetch("/api/generate", {
@@ -22,8 +18,6 @@ export const FloatButton = ({ buttonDesc, stageNumber }) => {
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
-
-      console.log(stageResult);
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -32,18 +26,17 @@ export const FloatButton = ({ buttonDesc, stageNumber }) => {
     }
   }
 
-  function clickHandler() {
-    console.log("test");
-  }
+  const clickHandler = () => {
+    stageResult.push(buttonDesc);
+    console.log(stageResult);
+  };
 
   const isGPTStage = stageNumber === "10";
   const isGPTButton = isGPTStage && window.location.href.split("/").slice(-1) === "10";
 
   return (
     <Link href={`stage/${Number(stageNumber) + 1}`}>
-      <FloatBtn onClick={isGPTButton ? clickHanderGPT : clickHandler} disabled={isLoading}>
-        {isLoading ? "Loading..." : buttonDesc}
-      </FloatBtn>
+      <FloatBtn onClick={isGPTButton ? clickHanderGPT : clickHandler}>{buttonDesc}</FloatBtn>
     </Link>
   );
 };
