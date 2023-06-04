@@ -1,14 +1,11 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
+import { useState } from "react";
 
-export const GameDescBox = ({
-  descHeader,
-  desc,
-  startButtonDesc,
-  buttonDesc,
-  stageNumber,
-}) => {
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }) => {
+  const [gptResult, setGptResult] = useState("");
+
   return (
     <>
       <DescHeader>{descHeader}</DescHeader>
@@ -16,15 +13,9 @@ export const GameDescBox = ({
       <ButtonBox>
         {!!startButtonDesc ? (
           <StartButton startButtonDesc={startButtonDesc} />
-        ) : (
-          buttonDesc.map((ele, i) => (
-            <FloatButton
-              buttonDesc={buttonDesc[i]}
-              key={i}
-              stageNumber={stageNumber}
-            />
-          ))
-        )}
+        ) : buttonDesc && buttonDesc.length > 0 ? ( // buttonDesc가 존재하고 배열이 비어있지 않을 경우에만 순회
+          buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} setGptResult={setGptResult} />)
+        ) : null}
       </ButtonBox>
     </>
   );

@@ -28,7 +28,7 @@ export default async function handler(req, res) {
 
   try {
     const completion = await openai.createCompletion({
-      model: "text-davinci-003",
+      model: "gpt-3.5-turbo",
       prompt: generateText(value),
       temperature: 0.8,
     });
@@ -49,13 +49,13 @@ export default async function handler(req, res) {
   }
 }
 
-export function generateText(buttonDesc) {
-  console.log(buttonDesc);
+export function generateText(buttonResult) {
+  console.log(buttonResult);
   console.log(`generateText() is called`);
   return `Suggest a character name that is appropriate for the Harry Potter story.
 
   userName: Nara
   characterName: Neville Longbottom
-  userName: ${buttonDesc}
+  userName: ${buttonResult}
   characterName:`;
 }

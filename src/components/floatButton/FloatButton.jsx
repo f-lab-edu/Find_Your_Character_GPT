@@ -1,42 +1,61 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
-import { stageResult } from "../../../constant/constants";
+import { useRouter } from "next/navigation";
+import { atom, useRecoilState } from "recoil";
 
-export const FloatButton = ({ buttonDesc, stageNumber }) => {
-  async function clickHanderGPT() {
+const stageResultState = atom({
+  key: "stageResult",
+  default: [],
+});
+
+export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
+  const router = useRouter();
+  const [stageResult, setStageResult] = useRecoilState(stageResultState);
+
+  async function clickHandlerGPT() {
     try {
-      setIsLoading(true);
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ value: buttonDesc }),
+        body: JSON.stringify({ value: stageResult.toString() }),
       });
+
       const data = await response.json();
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
+
+      console.log(data.result);
+      setGptResult(data.result);
     } catch (error) {
       console.error(error);
       alert(error.message);
-    } finally {
-      setIsLoading(false);
+    }
+  }
+
+  async function stageTenClickHandler() {
+    if (stageNumber === "10") {
+      // window.location.href = "/result";
+      router.push("/result");
     }
   }
 
   const clickHandler = () => {
-    stageResult.push(buttonDesc);
+    setStageResult([...stageResult, buttonDesc]);
     console.log(stageResult);
+    if (stageNumber === "10") {
+      clickHandlerGPT();
+      stageTenClickHandler();
+    }
   };
-
-  const isGPTStage = stageNumber === "10";
-  const isGPTButton = isGPTStage && window.location.href.split("/").slice(-1) === "10";
 
   return (
     <Link href={`stage/${Number(stageNumber) + 1}`}>
-      <FloatBtn onClick={isGPTButton ? clickHanderGPT : clickHandler}>{buttonDesc}</FloatBtn>
+      <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
+      {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
     </Link>
   );
 };
