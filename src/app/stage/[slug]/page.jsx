@@ -7,22 +7,19 @@ import { styled } from "styled-components";
 
 export default function StagePage({ params }) {
   const stageNumber = params.slug;
-
   return (
-    <>
-      <DescWrapper>
-        <DescBox>
-          <ProgressBar value={stageNumber * 10} />
-          <GameDescBox
-            descHeader={`스테이지${stageNumber}`}
-            desc={"설명설명설명"}
-            startButtonDesc={""}
-            buttonDesc={buttonDescription[+stageNumber - 1]}
-            stageNumber={stageNumber}
-          />
-        </DescBox>
-      </DescWrapper>
-    </>
+    <DescWrapper>
+      <DescBox>
+        <ProgressBar value={stageNumber * 10} />
+        <GameDescBox
+          descHeader={`스테이지${stageNumber}`}
+          desc={"설명설명설명"}
+          startButtonDesc={""}
+          buttonDesc={buttonDescription[+stageNumber - 1]}
+          stageNumber={stageNumber}
+        />
+      </DescBox>
+    </DescWrapper>
   );
 }
 
