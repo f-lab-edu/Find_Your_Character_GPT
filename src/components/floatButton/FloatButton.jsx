@@ -1,49 +1,61 @@
 import Link from "next/link";
 import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
-import { stageResult } from "../../../constant/constants";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { atom, useRecoilState } from "recoil";
 
-export const FloatButton = ({ buttonDesc, stageNumber }) => {
-  const [isLoading, setIsLoading] = useState(false);
+const stageResultState = atom({
+  key: "stageResult",
+  default: [],
+});
 
-  async function clickHanderGPT() {
-    stageResult.push(buttonDesc);
+export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
+  const router = useRouter();
+  const [stageResult, setStageResult] = useRecoilState(stageResultState);
+
+  async function clickHandlerGPT() {
     try {
-      setIsLoading(true);
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ value: buttonDesc }),
+        body: JSON.stringify({ value: stageResult.toString() }),
       });
+
       const data = await response.json();
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      console.log(stageResult);
+      console.log(data.result);
+      setGptResult(data.result);
     } catch (error) {
       console.error(error);
       alert(error.message);
-    } finally {
-      setIsLoading(false);
     }
   }
 
-  function clickHandler() {
-    console.log("test");
+  async function stageTenClickHandler() {
+    if (stageNumber === "10") {
+      // window.location.href = "/result";
+      router.push("/result");
+    }
   }
 
-  const isGPTStage = stageNumber === "10";
-  const isGPTButton = isGPTStage && window.location.href.split("/").slice(-1) === "10";
+  const clickHandler = () => {
+    setStageResult([...stageResult, buttonDesc]);
+    console.log(stageResult);
+    if (stageNumber === "10") {
+      clickHandlerGPT();
+      stageTenClickHandler();
+    }
+  };
 
   return (
     <Link href={`stage/${Number(stageNumber) + 1}`}>
-      <FloatBtn onClick={isGPTButton ? clickHanderGPT : clickHandler} disabled={isLoading}>
-        {isLoading ? "Loading..." : buttonDesc}
-      </FloatBtn>
+      <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
+      {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
     </Link>
   );
 };
