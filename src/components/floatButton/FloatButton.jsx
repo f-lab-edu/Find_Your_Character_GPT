@@ -38,12 +38,12 @@ export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
 
   async function stageTenClickHandler() {
     if (stageNumber === "10") {
-      // window.location.href = "/result";
       router.push("/result");
     }
   }
 
   const clickHandler = () => {
+    router.push(`stage/${Number(stageNumber) + 1}`);
     setStageResult([...stageResult, buttonDesc]);
     console.log(stageResult);
     if (stageNumber === "10") {
@@ -53,10 +53,8 @@ export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
   };
 
   return (
-    <Link href={`stage/${Number(stageNumber) + 1}`}>
-      <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
-      {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
-    </Link>
+    <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
+    // {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
   );
 };
 
