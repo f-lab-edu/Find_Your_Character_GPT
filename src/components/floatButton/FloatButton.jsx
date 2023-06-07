@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
 import { useRouter } from "next/navigation";
 import { atom, useRecoilState } from "recoil";
+import Link from "next/link";
 
 const stageResultState = atom({
   key: "stageResult",
@@ -35,24 +36,18 @@ export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
     }
   }
 
-  async function stageTenClickHandler() {
-    if (stageNumber === "10") {
-      router.push("/result");
-    }
-  }
-
   const clickHandler = () => {
-    router.push(`stage/${Number(stageNumber) + 1}`);
     setStageResult([...stageResult, buttonDesc]);
     console.log(stageResult);
     if (stageNumber === "10") {
       clickHandlerGPT();
-      stageTenClickHandler();
     }
   };
 
   return (
-    <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
+    <Link href={stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`}>
+      <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
+    </Link>
     // {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
   );
 };
