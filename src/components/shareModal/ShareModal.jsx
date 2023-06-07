@@ -1,3 +1,5 @@
+"use client";
+import { usePathname } from "next/navigation";
 import { useRef } from "react";
 import { styled } from "styled-components";
 
@@ -8,6 +10,18 @@ export const ShareModal = ({ setModalOpen }) => {
       setModalOpen(false);
     }
   };
+  const baseUrl = "localhost:3000";
+  const location = usePathname();
+  console.log(location);
+  const handleCopyClipBoard = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      alert("클립보드에 링크가 복사되었어요.");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Dim
@@ -29,12 +43,14 @@ export const ShareModal = ({ setModalOpen }) => {
             </button>
           </ModalHeader>
           <ModalBody>
-            <a href="#">
+            <button>
               <img src="/img/kakao.png" alt="카카오톡공유" />
-            </a>
-            <a href="#">
+            </button>
+            <button
+              onClick={() => handleCopyClipBoard(`${baseUrl}${location}`)}
+            >
               <img src="/img/link.svg" alt="링크공유" />
-            </a>
+            </button>
           </ModalBody>
         </ModalContent>
       </ModalContainer>
@@ -84,8 +100,9 @@ const ModalBody = styled.div`
   display: flex;
   justify-content: space-around;
   padding: 1rem;
-  a {
+  button {
     width: 60px;
+    cursor: pointer;
     img {
       width: 100%;
       border: 2px solid #efefef;
