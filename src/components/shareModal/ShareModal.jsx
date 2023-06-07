@@ -21,6 +21,17 @@ export const ShareModal = ({ setModalOpen }) => {
       console.log(err);
     }
   };
+  const shareKakao = () => {
+    if (window.Kakao) {
+      const kakao = window.Kakao;
+      if (!kakao.isInitialized()) {
+        kakao.init("09cf6a1eb058fa2ec9d087d892693240");
+      }
+      window.Kakao.Share.sendCustom({
+        templateId: 94714,
+      });
+    }
+  };
 
   return (
     <>
@@ -43,7 +54,7 @@ export const ShareModal = ({ setModalOpen }) => {
             </button>
           </ModalHeader>
           <ModalBody>
-            <button>
+            <button onClick={shareKakao}>
               <img src="/img/kakao.png" alt="카카오톡공유" />
             </button>
             <button
