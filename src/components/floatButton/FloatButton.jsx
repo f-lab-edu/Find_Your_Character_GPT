@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
-import { useRouter } from "next/navigation";
 import { atom, useRecoilState } from "recoil";
 import Link from "next/link";
 
@@ -10,7 +9,6 @@ const stageResultState = atom({
 });
 
 export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
-  const router = useRouter();
   const [stageResult, setStageResult] = useRecoilState(stageResultState);
 
   async function clickHandlerGPT() {
