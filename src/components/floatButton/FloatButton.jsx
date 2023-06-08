@@ -8,31 +8,8 @@ const stageResultState = atom({
   default: [],
 });
 
-export const FloatButton = ({ buttonDesc, stageNumber, setGptResult }) => {
+export const FloatButton = ({ buttonDesc, stageNumber, clickHandlerGPT }) => {
   const [stageResult, setStageResult] = useRecoilState(stageResultState);
-
-  async function clickHandlerGPT() {
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ value: stageResult.toString() }),
-      });
-
-      const data = await response.json();
-      if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
-      }
-
-      console.log(data.result);
-      setGptResult(data.result);
-    } catch (error) {
-      console.error(error);
-      alert(error.message);
-    }
-  }
 
   const clickHandler = () => {
     setStageResult([...stageResult, buttonDesc]);

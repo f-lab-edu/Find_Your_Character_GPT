@@ -6,6 +6,29 @@ import { useState } from "react";
 export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }) => {
   const [gptResult, setGptResult] = useState("");
 
+  async function clickHandlerGPT() {
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ value: stageResult.toString() }),
+      });
+
+      const data = await response.json();
+      if (response.status !== 200) {
+        throw data.error || new Error(`Request failed with status ${response.status}`);
+      }
+
+      console.log(data.result);
+      setGptResult(data.result);
+    } catch (error) {
+      console.error(error);
+      alert(error.message);
+    }
+  }
+
   return (
     <>
       <DescHeader>{descHeader}</DescHeader>
@@ -14,7 +37,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
         {!!startButtonDesc ? (
           <StartButton startButtonDesc={startButtonDesc} />
         ) : (
-          buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} setGptResult={setGptResult} />)
+          buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} clickHandlerGPT={clickHandlerGPT} />)
         )}
       </ButtonBox>
     </>
