@@ -13,9 +13,9 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
       <ButtonBox>
         {!!startButtonDesc ? (
           <StartButton startButtonDesc={startButtonDesc} />
-        ) : buttonDesc && buttonDesc.length > 0 ? ( // buttonDesc가 존재하고 배열이 비어있지 않을 경우에만 순회
+        ) : (
           buttonDesc.map((ele, i) => <FloatButton buttonDesc={buttonDesc[i]} key={i} stageNumber={stageNumber} setGptResult={setGptResult} />)
-        ) : null}
+        )}
       </ButtonBox>
     </>
   );
