@@ -1,8 +1,13 @@
 import styled from "styled-components";
-import { generateText } from "../../app/api/generate";
 import Link from "next/link";
 
-export const FloatButton = ({ buttonDesc, stageNumber, clickHandler }) => {
+interface FloatButtonProps {
+  buttonDesc: string;
+  stageNumber: string;
+  clickHandler: (buttonDesc: string) => void;
+}
+
+export const FloatButton: React.FC<FloatButtonProps> = ({ buttonDesc, stageNumber, clickHandler }) => {
   return (
     <Link href={stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`}>
       <FloatBtn onClick={() => clickHandler(buttonDesc)}>{buttonDesc}</FloatBtn>
@@ -34,4 +39,4 @@ const FloatBtn = styled.button`
     will-change: transform;
     box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
   }
-`;
+}`;
