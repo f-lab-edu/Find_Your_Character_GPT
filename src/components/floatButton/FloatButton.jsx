@@ -1,27 +1,11 @@
 import styled from "styled-components";
 import { generateText } from "../../app/api/generate";
-import { atom, useRecoilState } from "recoil";
 import Link from "next/link";
 
-const stageResultState = atom({
-  key: "stageResult",
-  default: [],
-});
-
-export const FloatButton = ({ buttonDesc, stageNumber, clickHandlerGPT }) => {
-  const [stageResult, setStageResult] = useRecoilState(stageResultState);
-
-  const clickHandler = () => {
-    setStageResult([...stageResult, buttonDesc]);
-    console.log(stageResult);
-    if (stageNumber === "10") {
-      clickHandlerGPT();
-    }
-  };
-
+export const FloatButton = ({ buttonDesc, stageNumber, clickHandler }) => {
   return (
     <Link href={stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`}>
-      <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>
+      <FloatBtn onClick={() => clickHandler(buttonDesc)}>{buttonDesc}</FloatBtn>
     </Link>
     // {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
   );
