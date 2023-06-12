@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Logo/Logo.jsx", "src/components/GameDesc/GameDescHeader.jsx", "src/components/GameDesc/GameDescBox.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/components/Logo/Logo.jsx", "src/components/GameDesc/GameDescHeader.jsx", "src/components/GameDesc/GameDescBox.tsx"],
   "exclude": ["node_modules"]
 }

@@ -1,7 +1,11 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-export const StartButton = ({ startButtonDesc }) => {
+interface StartButtonProps {
+  startButtonDesc: string;
+}
+
+export const StartButton: React.FC<StartButtonProps> = ({ startButtonDesc }) => {
   return (
     <Link href="/stage/1">
       <StartBtn>{startButtonDesc}</StartBtn>
