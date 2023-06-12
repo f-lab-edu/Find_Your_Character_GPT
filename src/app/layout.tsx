@@ -2,11 +2,7 @@
 import "../styles/globals.css";
 import { Inter, Nanum_Myeongjo } from "next/font/google";
 import { RecoilRoot } from "recoil";
-declare global {
-  interface Window {
-    Kakao: any;
-  }
-}
+
 const inter = Inter({ subsets: ["latin"] });
 const nanumMyeongjo = Nanum_Myeongjo({ subsets: ["latin"], weight: ["400", "700", "800"] });
 
