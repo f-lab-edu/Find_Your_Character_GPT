@@ -45,9 +45,9 @@ export default function ResultPage() {
           clickHandler={() => {
             setModalOpen(true);
           }}
-          buttonDesc={"공유하기"}
+          buttonDesc="공유하기"
         />
-        <ResultButton buttonDesc={"다시하기"} />
+        <ResultButton buttonDesc="다시하기" />
       </ButtonBox>
       {modalOpen && <ShareModal setModalOpen={setModalOpen} />}
     </ResultBox>

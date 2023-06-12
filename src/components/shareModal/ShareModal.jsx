@@ -35,12 +35,7 @@ export const ShareModal = ({ setModalOpen }) => {
 
   return (
     <>
-      <Dim
-        ref={modalRef}
-        onClick={(e) => {
-          clickOut(e);
-        }}
-      />
+      <Dim ref={modalRef} onClick={clickOut} />
       <ModalContainer>
         <ModalContent>
           <ModalHeader>
