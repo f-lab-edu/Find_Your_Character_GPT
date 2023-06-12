@@ -118,7 +118,6 @@ const ModalBody = styled.div`
       width: 100%;
       border: 2px solid #efefef;
       border-radius: 50%;
-      vertical-align: middle;
     }
   }
 `;
