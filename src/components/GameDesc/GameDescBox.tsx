@@ -27,7 +27,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
     }
   }, [stageNumber]);
 
-  async function clickHandlerGPT() {
+  const clickHandlerGPT = async () => {
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -50,11 +50,10 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
         alert(error.message);
       }
     }
-  }
+  };
 
   const clickHandler = (buttonDesc: string) => {
     setStageResult([...stageResult, buttonDesc]);
-    console.log(stageResult);
   };
 
   return (

@@ -49,13 +49,13 @@ export default async function handler(req, res) {
   }
 }
 
-export function generateText(buttonResult) {
-  console.log(buttonResult);
+export const generateText = (buttonDesc) => {
+  console.log(buttonDesc);
   console.log(`generateText() is called`);
   return `Suggest a character name that is appropriate for the Harry Potter story.
 
   userName: Nara
   characterName: Neville Longbottom
-  userName: ${buttonResult}
+  userName: ${buttonDesc}
   characterName:`;
-}
+};

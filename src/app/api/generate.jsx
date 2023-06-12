@@ -48,7 +48,7 @@ export default async function handler(req, res) {
   }
 }
 
-export function generateText(buttonDesc) {
+export const generateText = (buttonDesc) => {
   console.log(buttonDesc);
   console.log(`generateText() is called`);
   return `Suggest a character name that is appropriate for the Harry Potter story.
@@ -57,4 +57,4 @@ export function generateText(buttonDesc) {
   characterName: Neville Longbottom
   userName: ${buttonDesc}
   characterName:`;
-}
+};
