@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 
 const stageResultState = atom<string[]>({
@@ -17,9 +17,15 @@ interface GameDescBoxProps {
   stageNumber: string;
 }
 
-export const GameDescBox: React.FC<GameDescBoxProps> = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }) => {
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }: GameDescBoxProps) => {
   const [gptResult, setGptResult] = useState<string>("");
   const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
+
+  useEffect(() => {
+    if (stageNumber === "10") {
+      clickHandlerGPT();
+    }
+  }, [stageNumber]);
 
   async function clickHandlerGPT() {
     try {
@@ -38,18 +44,17 @@ export const GameDescBox: React.FC<GameDescBoxProps> = ({ descHeader, desc, star
 
       console.log(data.result);
       setGptResult(data.result);
-    } catch (error: any) {
-      console.error(error);
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error(error);
+        alert(error.message);
+      }
     }
   }
 
   const clickHandler = (buttonDesc: string) => {
     setStageResult([...stageResult, buttonDesc]);
     console.log(stageResult);
-    if (stageNumber === "10") {
-      clickHandlerGPT();
-    }
   };
 
   return (

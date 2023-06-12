@@ -7,7 +7,7 @@ interface FloatButtonProps {
   clickHandler: (buttonDesc: string) => void;
 }
 
-export const FloatButton: React.FC<FloatButtonProps> = ({ buttonDesc, stageNumber, clickHandler }) => {
+export const FloatButton = ({ buttonDesc, stageNumber, clickHandler }: FloatButtonProps) => {
   return (
     <Link href={stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`}>
       <FloatBtn onClick={() => clickHandler(buttonDesc)}>{buttonDesc}</FloatBtn>
