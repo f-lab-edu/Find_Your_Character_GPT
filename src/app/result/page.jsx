@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { styled } from "styled-components";
 import { GlowText } from "../../components/glowText/GlowText";
 import { ImageBox } from "../../components/imageBox/ImageBox";
-import { FloatButton } from "../../components/floatButton/FloatButton";
+import { ResultButton } from "../../components//floatButton/ResultButton";
+import { ShareModal } from "../../components/shareModal/ShareModal";
 
 export default function ResultPage() {
+  const [modalOpen, setModalOpen] = useState(false);
   return (
     <ResultBox>
       <ImageBox size={"300"} name={"potter"} />
@@ -39,15 +41,20 @@ export default function ResultPage() {
         </SimilarBox>
       </SimilarContainer>
       <ButtonBox>
-        <FloatButton buttonDesc={"공유하기"} />
-        <FloatButton buttonDesc={"다시하기"} />
+        <ResultButton
+          clickHandler={() => {
+            setModalOpen(true);
+          }}
+          buttonDesc="공유하기"
+        />
+        <ResultButton buttonDesc="다시하기" />
       </ButtonBox>
+      {modalOpen && <ShareModal setModalOpen={setModalOpen} />}
     </ResultBox>
   );
 }
 
 const ResultBox = styled.div`
-  border: 1px solid blue;
   display: flex;
   flex-direction: column;
   width: 600px;

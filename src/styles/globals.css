@@ -3,3 +3,11 @@ body {
   padding: 0px;
   border: 0px;
 }
+button {
+  border: 0;
+  background-color: transparent;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
