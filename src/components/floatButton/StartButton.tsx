@@ -5,7 +5,7 @@ interface StartButtonProps {
   startButtonDesc: string;
 }
 
-export const StartButton: React.FC<StartButtonProps> = ({ startButtonDesc }) => {
+export const StartButton = ({ startButtonDesc }: StartButtonProps) => {
   return (
     <Link href="/stage/1">
       <StartBtn>{startButtonDesc}</StartBtn>

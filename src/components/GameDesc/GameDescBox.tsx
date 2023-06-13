@@ -17,7 +17,7 @@ interface GameDescBoxProps {
   stageNumber: string;
 }
 
-export const GameDescBox: React.FC<GameDescBoxProps> = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }) => {
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }: GameDescBoxProps) => {
   const [gptResult, setGptResult] = useState<string>("");
   const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
 
