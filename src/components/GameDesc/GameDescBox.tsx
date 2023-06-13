@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { atom, useRecoilState } from "recoil";
 
 const stageResultState = atom<string[]>({
@@ -17,17 +17,12 @@ interface GameDescBoxProps {
   stageNumber: string;
 }
 
-export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }: GameDescBoxProps) => {
+export const GameDescBox: React.FC<GameDescBoxProps> = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }) => {
   const [gptResult, setGptResult] = useState<string>("");
   const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
 
-  useEffect(() => {
-    if (stageNumber === "10") {
-      clickHandlerGPT();
-    }
-  }, [stageNumber]);
-
   async function clickHandlerGPT() {
+    console.log("test");
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -37,24 +32,27 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
         body: JSON.stringify({ value: stageResult.toString() }),
       });
 
+      console.log(response);
+
       const data = await response.json();
+      console.log(data);
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      console.log(data.result);
       setGptResult(data.result);
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(error);
-        alert(error.message);
-      }
+    } catch (error: any) {
+      console.error(error);
+      alert(error.message);
     }
   }
 
   const clickHandler = (buttonDesc: string) => {
     setStageResult([...stageResult, buttonDesc]);
     console.log(stageResult);
+    if (stageNumber === "10") {
+      clickHandlerGPT();
+    }
   };
 
   return (

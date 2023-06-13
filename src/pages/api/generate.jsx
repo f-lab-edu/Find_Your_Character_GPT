@@ -2,11 +2,13 @@ const { Configuration, OpenAIApi } = require("openai");
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
+  basePath: "https://api.openai.com/v1",
 });
 
 const openai = new OpenAIApi(configuration);
 
 export default async function handler(req, res) {
+  console.log("is handler function working?");
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -17,6 +19,7 @@ export default async function handler(req, res) {
   }
 
   const value = req.body.value || "";
+  console.log(value);
   if (value.trim().length === 0) {
     res.status(400).json({
       error: {
@@ -27,14 +30,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    const completion = await openai.createCompletion({
+    const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      prompt: generateText(value),
-      temperature: 0.8,
+      messages: [{ role: "user", content: "Hello world" }],
     });
-    res.status(200).json({ result: completion.data.choices[0].text });
+    res.status(200).json({ result: completion.data.choices[0].message.content });
+    console.log(completion); // 질문하기 : 왜 gpt-3.5-turbo가 아닌 gpt-3.5-turbo0301이 출력하는 지 모르겠습니당
+    console.log(completion.data.choices[0].message.content);
   } catch (error) {
-    // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data);
       res.status(error.response.status).json(error.response.data);
@@ -47,15 +50,4 @@ export default async function handler(req, res) {
       });
     }
   }
-}
-
-export function generateText(buttonResult) {
-  console.log(buttonResult);
-  console.log(`generateText() is called`);
-  return `Suggest a character name that is appropriate for the Harry Potter story.
-
-  userName: Nara
-  characterName: Neville Longbottom
-  userName: ${buttonResult}
-  characterName:`;
 }
