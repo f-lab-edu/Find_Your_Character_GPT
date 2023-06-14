@@ -32,10 +32,13 @@ export default async function handler(req, res) {
   try {
     const completion = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
-      messages: generateMessageText(value),
+      messages: generateMessageText(),
+      temperature: 0.5,
+      top_p: 1,
+      frequency_penalty: 1,
+      presence_penalty: 1,
     });
     res.status(200).json({ result: completion.data.choices[0].message.content });
-    //console.log(completion); // 질문하기 : 왜 gpt-3.5-turbo가 아닌 gpt-3.5-turbo0301이 출력하는 지 모르겠습니당
     console.log(completion.data.choices[0].message.content);
   } catch (error) {
     if (error.response) {
@@ -55,11 +58,12 @@ export default async function handler(req, res) {
 export const generateMessageText = (params) => {
   return [
     {
+      role: "system",
+      content: "Name one significant Harry Potter character and provide the character name and description as a JSON object. Must be your answers are based on the roles above",
+    },
+    {
       role: "user",
-      content: `Suggest a character name that is appropriate for the Harry Potter story.
-
-  userName: ${params}
-  characterName:`,
+      content: "sex is women ,good concentration, Slytherin House, Honor over money",
     },
   ];
 };
