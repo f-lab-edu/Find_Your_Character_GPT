@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
-
-export const ProgressBar = ({ value }) => {
+interface ValueProps {
+  value: number
+}
+export const ProgressBar = ({ value }: ValueProps) => {
   return <Progress max={100} value={value}></Progress>;
 };
 
