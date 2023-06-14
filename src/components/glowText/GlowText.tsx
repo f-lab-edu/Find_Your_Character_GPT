@@ -1,6 +1,11 @@
 import styled, { keyframes } from "styled-components";
+interface PropsType {
+  margin?: string,
+  desc?: string,
+  size: string
+}
 
-export const GlowText = ({ margin, desc, size }) => {
+export const GlowText = ({ margin, desc, size }: PropsType) => {
   return (
     <GlowTxt margin={margin} size={size}>
       {desc}
@@ -16,7 +21,7 @@ const glow = keyframes`
     text-shadow: 0 0 20px #fff, 0 0 30px #8990fb, 0 0 40px #8990fb, 0 0 50px #8990fb;
   }
 `;
-const GlowTxt = styled.span`
+const GlowTxt = styled.span<PropsType>`
   margin: ${({ margin }) => margin + "px"} 0;
   color: white;
   font-size: ${({ size }) => size + "px"};
