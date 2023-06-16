@@ -1,8 +1,8 @@
 import styled, { keyframes } from "styled-components";
 interface PropsType {
-  margin?: string,
+  margin?: number,
   desc?: string,
-  size: string
+  size: number
 }
 
 export const GlowText = ({ margin, desc, size }: PropsType) => {
