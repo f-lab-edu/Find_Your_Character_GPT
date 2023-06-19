@@ -50,7 +50,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         },
         {
           role: "user",
-          content: "섬세함: 7, 활발함: 8, 악랄함: 2, 정의로움: 9, 마법능력: 6 ",
+          content: `${value}`,
         },
       ],
       temperature: 0.4,
