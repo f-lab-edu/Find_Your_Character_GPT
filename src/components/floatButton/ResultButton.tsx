@@ -1,7 +1,7 @@
 import styled from "styled-components";
 interface ButtonProps {
   buttonDesc: string,
-  clickHandler?: () => void;
+  clickHandler: () => void;
 }
 export const ResultButton = ({ buttonDesc, clickHandler }: ButtonProps) => {
   return <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>;

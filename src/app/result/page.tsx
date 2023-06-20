@@ -5,8 +5,10 @@ import { GlowText } from "../../components/glowText/GlowText";
 import { ImageBox } from "../../components/imageBox/ImageBox";
 import { ResultButton } from "../../components/floatButton/ResultButton";
 import { ShareModal } from "../../components/shareModal/ShareModal";
+import { useRouter } from "next/navigation";
 
 export default function ResultPage() {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <ResultBox>
@@ -47,7 +49,9 @@ export default function ResultPage() {
           }}
           buttonDesc="공유하기"
         />
-        <ResultButton buttonDesc="다시하기" />
+        <ResultButton buttonDesc="다시하기" clickHandler={() => {
+          router.push(`/`);
+        }} />
       </ButtonBox>
       {modalOpen && <ShareModal setModalOpen={setModalOpen} />}
     </ResultBox>
