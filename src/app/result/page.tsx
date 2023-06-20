@@ -3,22 +3,24 @@ import React, { useState } from "react";
 import { styled } from "styled-components";
 import { GlowText } from "../../components/glowText/GlowText";
 import { ImageBox } from "../../components/imageBox/ImageBox";
-import { ResultButton } from "../../components//floatButton/ResultButton";
+import { ResultButton } from "../../components/floatButton/ResultButton";
 import { ShareModal } from "../../components/shareModal/ShareModal";
+import { useRouter } from "next/navigation";
 
 export default function ResultPage() {
+  const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <ResultBox>
       <ImageBox size={"300"} name={"potter"} />
       <GlowText
-        margin={"20"}
+        margin={20}
         desc={"용감하고 재기발랄한 모험가인 당신은"}
-        size={"30"}
+        size={30}
       />
-      <GlowText desc={"'해리포터'"} size={"30"} />
-      <ContentFont margin={"30"}>
-        "해리는 시리즈 동안 아버지의 영구히 흐트러진 검은 머리와 어머니의 밝은
+      <GlowText desc="'해리포터'" size={30} />
+      <ContentFont>
+        {`해리는 시리즈 동안 아버지의 영구히 흐트러진 검은 머리와 어머니의 밝은
         녹색 눈, 이마에 번개 모양의 흉터가 있는 것으로 묘사되고 있다. 그는 마른
         얼굴과 혹 모양의 무릎으로 그의 나이에 비해 작고 마른것으로 묘사되며 뿔테
         안경을 쓰고 있다. 첫 번째 책에서 그의 흉터는 해리가 자신의 외모에 대해
@@ -28,7 +30,7 @@ export default function ResultPage() {
         어떤 의미에서는 선택받은 사람이 되거나 저주받은 사람이 되는 것과
         같습니다. 롤링은 또한 해리가 부모님의 잘생긴 외모를 물려받았다고 말했다.
         시리즈의 후반부에서 해리는 키가 커지며, 일곱 번째 책은 아버지의 키를
-        '거의', 다른 캐릭터들에 의해 '키가 크다'라고 한다."
+        '거의', 다른 캐릭터들에 의해 '키가 크다'라고 한다.`}
       </ContentFont>
       <SimilarContainer>
         <SimilarBox>
@@ -47,7 +49,9 @@ export default function ResultPage() {
           }}
           buttonDesc="공유하기"
         />
-        <ResultButton buttonDesc="다시하기" />
+        <ResultButton buttonDesc="다시하기" clickHandler={() => {
+          router.push(`/`);
+        }} />
       </ButtonBox>
       {modalOpen && <ShareModal setModalOpen={setModalOpen} />}
     </ResultBox>

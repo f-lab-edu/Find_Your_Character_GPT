@@ -1,6 +1,9 @@
 import styled from "styled-components";
-
-export const ResultButton = ({ buttonDesc, clickHandler }) => {
+interface ButtonProps {
+  buttonDesc: string,
+  clickHandler: () => void;
+}
+export const ResultButton = ({ buttonDesc, clickHandler }: ButtonProps) => {
   return <FloatBtn onClick={clickHandler}>{buttonDesc}</FloatBtn>;
 };
 
