@@ -18,7 +18,7 @@ export default function ResultPage() {
         desc={"용감하고 재기발랄한 모험가인 당신은"}
         size={30}
       />
-      <GlowText desc={"'해리포터'"} size={30} />
+      <GlowText desc="'해리포터'" size={30} />
       <ContentFont>
         {`해리는 시리즈 동안 아버지의 영구히 흐트러진 검은 머리와 어머니의 밝은
         녹색 눈, 이마에 번개 모양의 흉터가 있는 것으로 묘사되고 있다. 그는 마른
