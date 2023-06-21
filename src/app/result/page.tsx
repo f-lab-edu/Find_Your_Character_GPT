@@ -6,12 +6,14 @@ import { ImageBox } from "../../components/imageBox/ImageBox";
 import { ResultButton } from "../../components/floatButton/ResultButton";
 import { ShareModal } from "../../components/shareModal/ShareModal";
 import { useRouter } from "next/navigation";
+import { Loading } from "@/components/loading/Loading";
 
 export default function ResultPage() {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <ResultBox>
+      <Loading />
       <ImageBox size={"300"} name={"potter"} />
       <GlowText
         margin={20}
