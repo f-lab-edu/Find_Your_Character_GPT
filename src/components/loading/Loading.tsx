@@ -3,21 +3,21 @@ import loading from "./loading.json";
 import { keyframes, styled } from "styled-components";
 
 export const Loading = () => {
-    return (
-        <Overlay>
-            <GlowText>
-                Loading...
-            </GlowText>
-            <LottieContainer>
-                <Lottie
-                    loop
-                    animationData={loading}
-                    play
-                    style={{ width: 600, height: 560 }}
-                />
-            </LottieContainer>
-        </Overlay>
-    );
+  return (
+    <Overlay>
+      <GlowText>
+        Loading...
+      </GlowText>
+      <LottieContainer>
+        <Lottie
+          loop
+          animationData={loading}
+          play
+          style={{ width: 600, height: 560 }}
+        />
+      </LottieContainer>
+    </Overlay>
+  );
 };
 
 const Overlay = styled.div`
@@ -46,7 +46,6 @@ color: white;
 font-size: 50px;
 text-align: center;
 animation: ${glow} 1.5s ease-in-out infinite alternate;
--webkit-animation: ${glow} 1.5s ease-in-out infinite alternate;
 @media (max-width: 800px) {
     font-size: 5vh;
 }
