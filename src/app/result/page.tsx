@@ -6,14 +6,13 @@ import { ImageBox } from "../../components/imageBox/ImageBox";
 import { ResultButton } from "../../components/floatButton/ResultButton";
 import { ShareModal } from "../../components/shareModal/ShareModal";
 import { useRouter } from "next/navigation";
-import { Loading } from "@/components/loading/Loading";
+import Link from "next/link";
 
 export default function ResultPage() {
   const router = useRouter();
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <ResultBox>
-      <Loading />
       <ImageBox size={"300"} name={"potter"} />
       <GlowText
         margin={20}
@@ -51,9 +50,7 @@ export default function ResultPage() {
           }}
           buttonDesc="공유하기"
         />
-        <ResultButton buttonDesc="다시하기" clickHandler={() => {
-          router.push(`/`);
-        }} />
+        <Link href="/"><ResultButton buttonDesc="다시하기" /></Link>
       </ButtonBox>
       {modalOpen && <ShareModal setModalOpen={setModalOpen} />}
     </ResultBox>
