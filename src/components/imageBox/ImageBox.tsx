@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 interface PropsType {
-  size: string,
+  size: number,
   name: string
 }
 export const ImageBox = ({ size, name }: PropsType) => {
@@ -14,9 +14,13 @@ export const ImageBox = ({ size, name }: PropsType) => {
 const Container = styled.div<PropsType>`
   width: ${({ size }) => size + "px"};
   height: ${({ size }) => size + "px"};
-  margin-bottom: 10px;
   background-image: url(${({ name }) => "img/" + name + ".png"});
   background-size: cover;
+  background-repeat: no-repeat;
   border-radius: 10px;
   border: 5px solid burlywood;
+  @media (max-width: 700px) {
+    width: ${({ size }) => size / 6.5 + "vw"};
+    height: ${({ size }) => size / 6.5 + "vw"};
+  }
 `;

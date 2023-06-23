@@ -3,6 +3,7 @@ import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
 import { useState } from "react";
 import { atom, useRecoilState } from "recoil";
+import { GlowText } from "../glowText/GlowText";
 
 const stageResultState = atom<string[]>({
   key: "stageResult",
@@ -57,7 +58,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
 
   return (
     <>
-      <DescHeader>{descHeader}</DescHeader>
+      <GlowText size={40} desc={descHeader} />
       <Desc>{desc}</Desc>
       <ButtonBox>
         {!!startButtonDesc ? (
@@ -70,18 +71,29 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
   );
 };
 
-const DescHeader = styled.h2`
-  font-size: 30px;
-`;
-const DescTextBox = styled.div`
-  height: 60%;
-`;
-const Desc = styled.p`
-  font-size: 18px;
+const Desc = styled.div`
+  margin: 60px 20px 40px;
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.5;
+  color: #ffffff;
+  @media (max-width: 800px) {
+    font-size: 3vw;
+  }
+  p {
+    font-size: 25px;
+    @media (max-width: 800px) {
+    font-size: 3vw;
+  }
+  }
 `;
 
 const ButtonBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  a {
+    width: 70%;
+  }
 `;

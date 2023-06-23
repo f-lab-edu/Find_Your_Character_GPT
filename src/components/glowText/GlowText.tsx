@@ -28,6 +28,6 @@ const GlowTxt = styled.span<PropsType>`
   text-align: center;
   animation: ${glow} 1.5s ease-in-out infinite alternate;
   @media (max-width: 800px) {
-    font-size: ${({ size }) => size / 6 + "vw"};
+    font-size: ${({ size }) => size / 6.5 + "vw"};
   }
 `;

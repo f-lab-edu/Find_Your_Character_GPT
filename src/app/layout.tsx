@@ -30,7 +30,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 const StyleWrapper = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   height: 100vh;
-  background-color: #bcbcbc;
+  background-image: url("img/background.jpg");
+  background-position: center;
+  background-size: cover;
 `;

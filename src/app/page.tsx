@@ -6,31 +6,26 @@ import { styled } from "styled-components";
 
 export default function Home() {
   return (
-    <>
-      <DescWrapper>
-        <DescBox>
-          <GameDescBox descHeader={startPage.startHeader} desc={startPage.startDesc} startButtonDesc={startPage.startButton} buttonDesc={""} stageNumber="" />
-        </DescBox>
-      </DescWrapper>
-    </>
+    <DescWrapper>
+      <GameDescBox descHeader={startPage.startHeader} desc={startPage.startDesc} startButtonDesc={startPage.startButton} buttonDesc={""} stageNumber="" />
+    </DescWrapper>
   );
 }
 
 const DescWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 600px;
-  padding: 50px;
-  background-image: url("img/harry.jpeg");
-  background-position: center;
-  background-size: cover;
-`;
-const DescBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 70%;
-  padding: 20px;
+  height: 800px;
+  border: 3px solid #8c95be;
+  border-radius: 20px;
+  background-color: #000000aa;
+
+  @media (max-width: 700px) {
+    width: 80%;
+    height: auto;
+    padding: 10% 0px;
+  }
 `;
