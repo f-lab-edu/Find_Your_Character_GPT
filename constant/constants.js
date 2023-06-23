@@ -1,13 +1,21 @@
 export const metaData = {};
 export const story = {};
 export const startPage = {
-  startHeader: "환영합니다!",
-  startDesc: "환영합니다. 유저여러분 지금부터 chatGPT가 생성한 질문들을 통해 여러분과 비슷한  해리포터 캐릭터를 찾아드릴께요! 오늘도 마법같은 하루를 보내시길바래요~",
+  startHeader: "해리포터 인생 캐릭터 찾기",
+  startDesc: (
+    <>
+      내가 만약 해리포터 영화 속 주인공이라면?
+      <br />
+      GPT가 찾아주는 나의 인생 마법사
+      <br />
+      <p>🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️</p>
+    </>
+  ),
   startButton: "Start",
 };
 
 export const buttonDescription = [
-  ["도망", "싸움", "몰라", "뭐해"],
+  ["시간 돌연변이 물약", "불꽃 폭탄 물약", "모든 마법을 해제하는 물약", "무적 물약"],
   ["도망2", "싸움2", "몰라2", "뭐해2"],
   ["도망3", "싸움3", "몰라3", "뭐해3"],
   ["도망4", "싸움4", "몰라4", "뭐해4"],
