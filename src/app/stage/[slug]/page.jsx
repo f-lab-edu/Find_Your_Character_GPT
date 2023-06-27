@@ -12,10 +12,8 @@ export default function StagePage({ params }) {
       <ProgressBar value={stageNumber * 10} />
       <GameDescBox
         descHeader={`Q.${stageNumber}`}
-        desc={
-          "해리포터 세계에서 가장 강력한 마법 물약은 무엇이라고 생각하나요?"
-        }
-        startButtonDesc={""}
+        desc="해리포터 세계에서 가장 강력한 마법 물약은 무엇이라고 생각하나요?"
+        startButtonDesc=""
         buttonDesc={buttonDescription[+stageNumber - 1]}
         stageNumber={stageNumber}
       />
