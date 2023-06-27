@@ -1,19 +1,24 @@
 import styled from "styled-components";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface FloatButtonProps {
   buttonDesc: string;
+  buttonIndex: number;
   stageNumber: string;
-  clickHandler: (buttonDesc: string) => void;
+  clickHandler: (buttonState: string) => void;
+  buttonState: string;
 }
 
-export const FloatButton = ({ buttonDesc, stageNumber, clickHandler }: FloatButtonProps) => {
-  return (
-    <Link href={stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`}>
-      <FloatBtn onClick={() => clickHandler(buttonDesc)}>{buttonDesc}</FloatBtn>
-    </Link>
-    // {/* disable해주기 useState를 활용하여 loading화면 띄우기 */}
-  );
+export const FloatButton = ({ buttonDesc, stageNumber, clickHandler, buttonState }: FloatButtonProps) => {
+  const router = useRouter();
+
+  const handlerButtonClick = () => {
+    clickHandler(buttonState);
+    router.push(stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`);
+  };
+
+  return <FloatBtn onClick={handlerButtonClick}>{buttonDesc}</FloatBtn>;
 };
 
 const FloatBtn = styled.button`

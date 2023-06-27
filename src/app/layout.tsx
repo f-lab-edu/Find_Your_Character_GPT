@@ -8,10 +8,8 @@ const nanumMyeongjo = Nanum_Myeongjo({ subsets: ["latin"], weight: ["400", "700"
 
 import StyledComponentsRegistry from "./registry";
 import { styled } from "styled-components";
-import { useEffect } from "react";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-
   return (
     <html className={nanumMyeongjo.className}>
       <head>

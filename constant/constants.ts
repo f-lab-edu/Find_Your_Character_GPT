@@ -2,13 +2,13 @@ export const metaData = {};
 export const story = {};
 export const startPage = {
   startHeader: "해리포터 인생 캐릭터 찾기",
-  startDesc: (
+  startDesc: `(
     <>
       <div>내가 만약 해리포터 영화 속 주인공이라면?</div>
       <div>GPT가 찾아주는 나의 인생 마법사</div>
       <p>🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️</p>
     </>
-  ),
+  )`,
   startButton: "Start",
 };
 
