@@ -7,6 +7,10 @@ export const ProgressBar = ({ value }: ProgressBarProps) => {
 };
 
 const Progress = styled.progress`
-  width: 100%;
+  width: 80%;
   height: 30px;
+  margin: 30px 0;
+  @media (max-width: 700px) {
+    height: 20px;
+  }
 `;

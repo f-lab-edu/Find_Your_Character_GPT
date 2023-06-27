@@ -9,36 +9,32 @@ export default function StagePage({ params }) {
   const stageNumber = params.slug;
   return (
     <DescWrapper>
-      <DescBox>
-        <ProgressBar value={stageNumber * 10} />
-        <GameDescBox
-          descHeader={`스테이지${stageNumber}`}
-          desc={"설명설명설명"}
-          startButtonDesc={""}
-          buttonDesc={buttonDescription[+stageNumber - 1]}
-          stageNumber={stageNumber}
-        />
-      </DescBox>
+      <ProgressBar value={stageNumber * 10} />
+      <GameDescBox
+        descHeader={`Q.${stageNumber}`}
+        desc="해리포터 세계에서 가장 강력한 마법 물약은 무엇이라고 생각하나요?"
+        startButtonDesc=""
+        buttonDesc={buttonDescription[+stageNumber - 1]}
+        stageNumber={stageNumber}
+      />
     </DescWrapper>
   );
 }
 
 const DescWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 600px;
-  padding: 50px;
-  background-image: url("img/harry.jpeg");
-  background-position: center;
-  background-size: cover;
-`;
-const DescBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  height: 70%;
-  padding: 20px;
+  height: 800px;
+  border: 3px solid #8c95be;
+  border-radius: 20px;
+  background-color: #000000aa;
+
+  @media (max-width: 700px) {
+    width: 80%;
+    height: auto;
+    padding: 10% 0px;
+  }
 `;
