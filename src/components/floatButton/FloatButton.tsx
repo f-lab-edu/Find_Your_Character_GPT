@@ -31,7 +31,7 @@ const FloatBtn = styled.button`
   padding: 40px;
   border-radius: 15px;
   color: #fff;
-  font-size: 24px;
+  font-size: 21px;
   white-space:pre-wrap;
   transition: all 0.2s;
   background: #25809f;

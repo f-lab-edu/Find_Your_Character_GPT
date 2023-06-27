@@ -101,8 +101,9 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
 
 const Desc = styled.div`
   margin: 60px 20px 40px;
-  font-size: 20px;
+  font-size: 24px;
   text-align: center;
+  white-space: pre;
   line-height: 1.5;
   color: #ffffff;
   @media (max-width: 800px) {

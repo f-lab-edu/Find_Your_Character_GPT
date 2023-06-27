@@ -19,7 +19,7 @@ export default function StagePage({ params }: StagePageProps) {
   return (
     <DescWrapper>
       <ProgressBar value={Number(stageNumber) * 10} />
-      <GameDescBox descHeader={`스테이지${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} stageNumber={stageNumber} />
+      <GameDescBox descHeader={`stage${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} stageNumber={stageNumber} />
     </DescWrapper>
   );
 }
