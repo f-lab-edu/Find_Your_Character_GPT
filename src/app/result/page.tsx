@@ -15,7 +15,7 @@ export default function ResultPage() {
   const [modalOpen, setModalOpen] = useState(false);
   return (
     <ResultBox>
-      <MainImage><ImageBox size={300} name={"potter"} /></MainImage>
+      <MainImage><ImageBox size={300} name={"gryffindor"} /></MainImage>
       <GlowText
         margin={20}
         desc={"용감하고 재기발랄한 모험가인 당신은"}
@@ -38,11 +38,19 @@ export default function ResultPage() {
       <SimilarContainer>
         <SimilarBox>
           <ContentFont size={25}>어울리는 캐릭터</ContentFont>
-          <ImageBox size={150} name={"ron"} />
+          <GlowText
+            margin={20}
+            desc={"론 위즐리"}
+            size={28}
+          />
         </SimilarBox>
         <SimilarBox>
           <ContentFont size={25}>안 어울리는 캐릭터</ContentFont>
-          <ImageBox size={150} name={"hermione"} />
+          <GlowText
+            margin={20}
+            desc={"볼드모트"}
+            size={28}
+          />
         </SimilarBox>
       </SimilarContainer>
       <ButtonBox>
@@ -101,13 +109,13 @@ const ContentFont = styled.p<ContentFontProp>`
   font-size: ${({ size }) => size + "px"};
   line-height: 1.8;
 
-  @media (max-width: 800px) {
+  @media (max-width: 700px) {
     font-size: ${({ size }) => size / 6 + "vw"};
   }
 `;
 const ButtonBox = styled.div`
   display: flex;
   justify-content: space-evenly;
-  width: 100%;
+  width: 80%;
   margin-top: 50px;
 `;
