@@ -25,18 +25,18 @@ const FloatBtn = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 70%;
   height: 50px;
+  margin: 10px 0;
   padding: 40px;
-  font-weight: 600;
-  font-size: 24px;
-  color: #fff;
   border-radius: 15px;
+  color: #fff;
+  font-size: 24px;
+  white-space:pre-wrap;
   transition: all 0.2s;
   background: #25809f;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
   cursor: pointer;
-  margin-top: 1em;
 
   &:hover {
     margin-left: 0px;
@@ -49,6 +49,6 @@ const FloatBtn = styled.button`
   @media (max-width: 700px) {
     height: 30px;
     padding: 25px;
-    font-size: 16px;
+    font-size: 3vw;
   }
 `;
