@@ -10,27 +10,35 @@ const stageResultState = atom<string[]>({
   default: [],
 });
 
+const gptResultState = atom<string>({
+  key: "gptResult",
+  default: "",
+});
+
+type StageResult = {
+  [key: string]: number;
+};
+
 interface GameDescBoxProps {
   descHeader: string;
   desc: string;
   startButtonDesc?: string;
-  buttonDesc: string[];
+  buttonDesc: [{ text: string; state: string }] | undefined;
   stageNumber: string;
 }
 
 export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }: GameDescBoxProps) => {
-  const [gptResult, setGptResult] = useState<string>("");
+  const [gptResult, setGptResult] = useRecoilState(gptResultState);
   const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
 
   async function clickHandlerGPT() {
-    console.log("test");
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ value: stageResult.toString() }),
+        body: JSON.stringify({ value: JSON.stringify(stageResult) }),
       });
 
       console.log(response);
@@ -48,13 +56,23 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
     }
   }
 
-  const clickHandler = (buttonDesc: string) => {
-    setStageResult([...stageResult, buttonDesc]);
-    console.log(stageResult);
+  const clickHandler = (buttonState: string) => {
+    setStageResult((prevResult: StageResult) => {
+      const updatedResult = { ...prevResult };
+      if (updatedResult[buttonState]) {
+        updatedResult[buttonState] += 1;
+      } else {
+        updatedResult[buttonState] = 1;
+      }
+      return updatedResult;
+    });
+
     if (stageNumber === "10") {
       clickHandlerGPT();
     }
   };
+
+  console.log(stageResult);
 
   return (
     <>
@@ -64,7 +82,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
         {!!startButtonDesc ? (
           <StartButton startButtonDesc={startButtonDesc} />
         ) : (
-          buttonDesc.map((ele, i) => <FloatButton buttonDesc={ele} key={i} stageNumber={stageNumber} clickHandler={clickHandler} />)
+          buttonDesc.map((choice, i) => <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} />)
         )}
       </ButtonBox>
     </>
@@ -83,8 +101,8 @@ const Desc = styled.div`
   p {
     font-size: 25px;
     @media (max-width: 800px) {
-    font-size: 3vw;
-  }
+      font-size: 3vw;
+    }
   }
 `;
 
