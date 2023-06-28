@@ -1,11 +1,14 @@
-"use client";
 import { usePathname } from "next/navigation";
-import { useRef } from "react";
+import { Dispatch, useRef } from "react";
 import { styled } from "styled-components";
 
-export const ShareModal = ({ setModalOpen }) => {
+interface ShareModalProps {
+  setModalOpen: Dispatch<React.SetStateAction<boolean>>;
+  clickHandler: () => void;
+}
+export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalOpen, clickHandler }) => {
   const modalRef = useRef(null);
-  const clickOut = (e) => {
+  const clickOut = (e: React.MouseEvent) => {
     if (modalRef.current === e.target) {
       setModalOpen(false);
     }
@@ -13,7 +16,7 @@ export const ShareModal = ({ setModalOpen }) => {
   const baseUrl = "localhost:3000";
   const location = usePathname();
   console.log(location);
-  const handleCopyClipBoard = async (text) => {
+  const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
       alert("클립보드에 링크가 복사되었어요.");
@@ -57,6 +60,9 @@ export const ShareModal = ({ setModalOpen }) => {
             >
               <img src="/img/link.svg" alt="링크공유" />
             </button>
+            <button onClick={clickHandler}>
+              <img src="/img/save.svg" alt="이미지저장" />
+            </button>
           </ModalBody>
         </ModalContent>
       </ModalContainer>
@@ -74,6 +80,7 @@ const Dim = styled.div`
 `;
 const ModalContainer = styled.div`
   position: absolute;
+  top: 7%;
   max-width: 600px;
   margin: 1.75rem auto;
   transition: transform 0.3s ease-out;
@@ -110,9 +117,15 @@ const ModalBody = styled.div`
     width: 60px;
     cursor: pointer;
     img {
-      width: 100%;
-      border: 2px solid #efefef;
+      width: 50px;
       border-radius: 50%;
+    }
+  }
+  button:nth-child(3) {
+    
+    img {
+      width: 50px;
+      background-color: #1d46ca;
     }
   }
 `;
