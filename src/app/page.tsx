@@ -6,7 +6,7 @@ import { styled } from "styled-components";
 export default function Home() {
   return (
     <DescWrapper>
-      <GameDescBox descHeader={startPage.startHeader} desc={startPage.startDesc} startButtonDesc={startPage.startButton} buttonDesc={undefined} stageNumber="" />
+      <GameDescBox descHeader={startPage.startHeader} startButtonDesc={startPage.startButton} buttonDesc={undefined} stageNumber="" />
     </DescWrapper>
   );
 }
