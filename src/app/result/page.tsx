@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { toPng } from 'html-to-image';
 import { styled } from "styled-components";
 import { GlowText } from "../../components/glowText/GlowText";
@@ -14,7 +14,7 @@ interface ContentFontProp {
 export default function ResultPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
-  const handleDownload = () => {
+  const handleDownload = useCallback(() => {
     toPng(ref.current as HTMLDivElement, { quality: 0.95 })
       .then((dataUrl) => {
         // 이미지 다운로드
@@ -23,7 +23,7 @@ export default function ResultPage() {
         link.href = dataUrl;
         link.click();
       });
-  };
+  }, []);
   return (
     <>
       <ResultBox ref={ref}>
