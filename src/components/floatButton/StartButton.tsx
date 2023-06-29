@@ -7,7 +7,7 @@ interface StartButtonProps {
 
 export const StartButton = ({ startButtonDesc }: StartButtonProps) => {
   return (
-    <Link href="/stage/1">
+    <Link href="/stage/">
       <StartBtn>{startButtonDesc}</StartBtn>
     </Link>
   );
@@ -26,7 +26,7 @@ const StartBtn = styled.button`
   border: none;
   border-radius: 15px;
   transition: all 0.2s;
-  background: #505A8B;
+  background: #505a8b;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 

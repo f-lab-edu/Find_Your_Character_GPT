@@ -1,25 +1,22 @@
 "use client";
 import React from "react";
+import { atom, useRecoilState } from "recoil";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
-import { buttonDescription } from "../../../../constant/constants";
+import { buttonDescription } from "../../../constant/constants";
 import { styled } from "styled-components";
-import questions from "../../../question.json";
+import questions from "../../question.json";
+import { stageNumberState } from "../../components/GameDesc/GameDescBox";
 
-interface StagePageProps {
-  params: {
-    slug: [{ text: string; state: string }];
-  };
-}
-
-export default function StagePage({ params }: StagePageProps) {
-  const stageNumber = params.slug;
-  const { question, choices } = questions[Number(stageNumber) - 1];
+export default function StagePage() {
+  const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
+  const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
+  console.log(stageNumber);
 
   return (
     <DescWrapper>
       <ProgressBar value={Number(stageNumber) * 10} />
-      <GameDescBox descHeader={`stage${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} stageNumber={stageNumber} />
+      <GameDescBox descHeader={`stage${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} />
     </DescWrapper>
   );
 }
