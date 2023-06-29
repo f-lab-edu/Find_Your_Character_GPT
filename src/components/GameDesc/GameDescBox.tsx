@@ -63,7 +63,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
   }
 
   const clickHandler = (buttonState: string) => {
-    setStageNumber(stageNumber !== 10 ? Number(stageNumber) + 1 : router.push(`/result`));
+    setStageNumber(stageNumber !== 10 ? Number(stageNumber) + 1 : Number(stageNumber));
     setStageResult((prevResult: StageResult) => {
       const updatedResult: StageResult = { ...prevResult };
       if (updatedResult[buttonState]) {
@@ -75,7 +75,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
     });
 
     if (stageNumber === 10) {
-      // clickHandlerGPT();
+      clickHandlerGPT();
     }
   };
 
