@@ -1,7 +1,6 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { useState } from "react";
 import { atom, useRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
 import { useRouter } from "next/navigation";
