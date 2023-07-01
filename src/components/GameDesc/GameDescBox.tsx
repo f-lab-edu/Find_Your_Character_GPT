@@ -1,9 +1,9 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { useState } from "react";
 import { atom, useRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
+import { useRouter } from "next/navigation";
 
 const stageResultState = atom<string[]>({
   key: "stageResult",
@@ -15,6 +15,11 @@ const gptResultState = atom<string>({
   default: "",
 });
 
+export const stageNumberState = atom<number>({
+  key: "stageNumber",
+  default: 1,
+});
+
 type StageResult = {
   [key: string]: number;
 };
@@ -23,13 +28,14 @@ interface GameDescBoxProps {
   descHeader: string;
   desc?: string;
   startButtonDesc?: string;
-  buttonDesc: [{ text: string; state: string }] | undefined;
-  stageNumber: string;
+  buttonDesc: { text: string; state: string }[] | undefined;
 }
 
-export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, stageNumber }: GameDescBoxProps) => {
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: GameDescBoxProps) => {
+  const router = useRouter();
   const [gptResult, setGptResult] = useRecoilState(gptResultState);
   const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
+  const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
 
   async function clickHandlerGPT() {
     try {
@@ -57,8 +63,9 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
   }
 
   const clickHandler = (buttonState: string) => {
+    setStageNumber(stageNumber !== 10 ? Number(stageNumber) + 1 : Number(stageNumber));
     setStageResult((prevResult: StageResult) => {
-      const updatedResult = { ...prevResult };
+      const updatedResult: StageResult = { ...prevResult };
       if (updatedResult[buttonState]) {
         updatedResult[buttonState] += 1;
       } else {
@@ -67,7 +74,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
       return updatedResult;
     });
 
-    if (stageNumber === "10") {
+    if (stageNumber === 10) {
       clickHandlerGPT();
     }
   };
@@ -77,12 +84,13 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
   return (
     <>
       <GlowText size={40} desc={descHeader} />
-
       {!!startButtonDesc ? (
         <>
-          <Desc><div>내가 만약 해리포터 영화 속 주인공이라면?</div>
+          <Desc>
+            <div>내가 만약 해리포터 영화 속 주인공이라면?</div>
             <div>GPT가 찾아주는 나의 인생 마법사</div>
-            <p>🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️</p></Desc>
+            <p>🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️ 🧙🏻‍♀️</p>
+          </Desc>
           <ButtonBox>
             <StartButton startButtonDesc={startButtonDesc} />
           </ButtonBox>
@@ -91,8 +99,10 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, sta
         <>
           <Desc>{desc}</Desc>
           <ButtonBox>
-            {buttonDesc?.map((choice, i) => <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} />)}
-          </ButtonBox >
+            {buttonDesc?.map((choice, i) => (
+              <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} />
+            ))}
+          </ButtonBox>
         </>
       )}
     </>
