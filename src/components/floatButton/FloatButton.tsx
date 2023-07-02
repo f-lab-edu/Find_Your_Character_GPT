@@ -1,11 +1,10 @@
 import styled from "styled-components";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 interface FloatButtonProps {
   buttonDesc: string;
   buttonIndex: number;
-  stageNumber: string;
+  stageNumber: number;
   clickHandler: (buttonState: string) => void;
   buttonState: string;
 }
@@ -15,7 +14,7 @@ export const FloatButton = ({ buttonDesc, stageNumber, clickHandler, buttonState
 
   const handlerButtonClick = () => {
     clickHandler(buttonState);
-    router.push(stageNumber !== "10" ? `stage/${Number(stageNumber) + 1}` : `/result`);
+    if (stageNumber === 10) router.push(`/result`);
   };
 
   return <FloatBtn onClick={handlerButtonClick}>{buttonDesc}</FloatBtn>;
@@ -32,7 +31,7 @@ const FloatBtn = styled.button`
   border-radius: 15px;
   color: #fff;
   font-size: 21px;
-  white-space:pre-wrap;
+  white-space: pre-wrap;
   transition: all 0.2s;
   background: #25809f;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5);
