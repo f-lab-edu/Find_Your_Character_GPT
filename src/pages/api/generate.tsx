@@ -36,8 +36,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           role: "user",
           content: [
             "Give me name and a brief description of one of main characters in Harry Potter based on given stats. Each stats is scored out of 8. Never ask me back a question. Output must be in Korean.",
-            `{"섬세함": 5, "활발함": 8, "악랄함": 8, "정의로움": 3, "마법능력": 8}`,
-            `{name: "벨라트릭스 레스트레인지",description:"벨라트릭스 레스트레인지(Bellatrix Lestrange)는 어둠의 마법사인 보디모트의 추종자이며, 악당으로서 시리즈 내에서 중요한 역할을 맡습니다.\n\n벨라트릭스는 블랙 가문의 일원으로 태어났습니다. 그녀는 아름다우면서 동시에 극도로 사나운 성격을 지니고 있으며, 어린 시절부터 어두운 마법과 블랙 가문의 가치를 적극적으로 수용하였습니다. 벨라트릭스의 가문은 순수혈통 마법사 가문으로 알려져 있으며, 그녀는 이 가문의 자부심을 극대화하기 위해 노력했습니다.},`,
+            `{"활발함": 1, "섬세함": 1, "악랄함": 8, "마법능력": 8, "주도적인": 8}`,
+            `{name: "볼드모트", description: "볼드모트(Voldemort)는 마법 세계에서 악명 높은 어둠의 마법사입니다.\n\n볼드모트는 극도로 악랄하고 잔인한 성격을 지니고 있으며, 그의 마법 능력은 놀라울 정도로 강력합니다. 그는 어둠의 마법과 저주를 다루며, 그의 목표는 마법계열 인종을 지배하고 세계를 정복하는 것입니다.\n\n볼드모트는 주도적이고 지배적인 성격으로 알려져 있으며, 그의 추종자들에게 사람들을 조종하고 마법세계를 통제하는 방법을 가르치기도 합니다. 그의 권력에 끌려 따르는 이들은 그의 명령에 절대적으로 복종하며, 그에게 충성을 다하는 모습을 보여줍니다.\n\n볼드모트는 해리 포터와의 치열한 대립을 통해 시리즈의 중요한 요소로 작용하며, 그의 악랄한 행동과 마법능력은 많은 독자들에게 강한 인상을 남기기도 했습니다."},`,
             `${value}`,
           ].join("\n"),
         },
