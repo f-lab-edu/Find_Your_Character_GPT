@@ -4,6 +4,7 @@ import { StartButton } from "../floatButton/StartButton";
 import { atom, useRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
 import { useRouter } from "next/navigation";
+import { Loading } from "../loading/Loading";
 
 const stageResultState = atom<string[]>({
   key: "stageResult",
@@ -18,6 +19,11 @@ const gptResultState = atom<string>({
 export const stageNumberState = atom<number>({
   key: "stageNumber",
   default: 1,
+});
+
+export const loadingState = atom<boolean>({
+  key: "loadingOpen",
+  default: false,
 });
 
 type StageResult = {
@@ -36,9 +42,11 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
   const [gptResult, setGptResult] = useRecoilState(gptResultState);
   const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
   const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
+  const [loadingOpen, setLoadingOepn] = useRecoilState<boolean>(loadingState);
 
   async function clickHandlerGPT() {
     try {
+      setLoadingOepn(true);
       const response = await fetch("/api/generate", {
         method: "POST",
         headers: {
@@ -47,15 +55,16 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
         body: JSON.stringify({ value: JSON.stringify(stageResult) }),
       });
 
-      console.log(response);
-
       const data = await response.json();
-      console.log(data);
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
       setGptResult(data.result);
+      if (response.status === 200) {
+        setLoadingOepn(false);
+        router.push("/result");
+      }
     } catch (error: any) {
       console.error(error);
       alert(error.message);
@@ -103,6 +112,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
               <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} />
             ))}
           </ButtonBox>
+          {loadingOpen && <Loading />}
         </>
       )}
     </>

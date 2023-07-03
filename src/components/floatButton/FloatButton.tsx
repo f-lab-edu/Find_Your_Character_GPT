@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useRouter } from "next/navigation";
 
 interface FloatButtonProps {
   buttonDesc: string;
@@ -10,11 +9,8 @@ interface FloatButtonProps {
 }
 
 export const FloatButton = ({ buttonDesc, stageNumber, clickHandler, buttonState }: FloatButtonProps) => {
-  const router = useRouter();
-
   const handlerButtonClick = () => {
     clickHandler(buttonState);
-    if (stageNumber === 10) router.push(`/result`);
   };
 
   return <FloatBtn onClick={handlerButtonClick}>{buttonDesc}</FloatBtn>;

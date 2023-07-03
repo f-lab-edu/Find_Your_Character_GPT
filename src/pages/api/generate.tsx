@@ -6,7 +6,6 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  console.log("is handler function working?");
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -17,7 +16,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const value = req.body.value || "";
-  console.log(value);
 
   if (value.trim().length === 0) {
     res.status(400).json({
