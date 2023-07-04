@@ -1,19 +1,27 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
 import { useRouter } from "next/navigation";
 import { Loading } from "../loading/Loading";
 
-const stageResultState = atom<string[]>({
+interface GPTResult {
+  name: string;
+  description: string;
+}
+
+const stageResultState = atom<StageResult>({
   key: "stageResult",
-  default: [],
+  default: {},
 });
 
-const gptResultState = atom<string>({
+const gptResultState = atom<GPTResult>({
   key: "gptResult",
-  default: "",
+  default: {
+    name: '',
+    description: '',
+  },
 });
 
 export const stageNumberState = atom<number>({
@@ -39,8 +47,8 @@ interface GameDescBoxProps {
 
 export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: GameDescBoxProps) => {
   const router = useRouter();
-  const [gptResult, setGptResult] = useRecoilState(gptResultState);
-  const [stageResult, setStageResult] = useRecoilState<string[]>(stageResultState);
+  const setGptResult = useSetRecoilState(gptResultState);
+  const [stageResult, setStageResult] = useRecoilState<StageResult>(stageResultState);
   const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
   const [loadingOpen, setLoadingOepn] = useRecoilState<boolean>(loadingState);
 
@@ -52,15 +60,21 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ value: JSON.stringify(stageResult) }),
+        body: JSON.stringify({ value: stageResult }),
       });
+      console.log(response);
 
-      const data = await response.json();
+      let data = await response.json();
+      console.log('GameDescBox', data);
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      setGptResult(data.result);
+      if (typeof data === 'string') {
+        data = JSON.parse(data);
+      }
+
+      setGptResult(data);
       if (response.status === 200) {
         setLoadingOepn(false);
         router.push("/result");
@@ -72,6 +86,11 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
   }
 
   const clickHandler = (buttonState: string) => {
+    if (stageNumber === 10) {
+      clickHandlerGPT();
+      return;
+    }
+
     setStageNumber(stageNumber !== 10 ? Number(stageNumber) + 1 : Number(stageNumber));
     setStageResult((prevResult: StageResult) => {
       const updatedResult: StageResult = { ...prevResult };
@@ -82,10 +101,6 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       }
       return updatedResult;
     });
-
-    if (stageNumber === 10) {
-      clickHandlerGPT();
-    }
   };
 
   console.log(stageResult);
