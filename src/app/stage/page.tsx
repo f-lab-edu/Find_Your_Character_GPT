@@ -10,7 +10,6 @@ import { stageNumberState } from "../../components/GameDesc/GameDescBox";
 export default function StagePage() {
   const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
   const { question, choices } = stageNumber > 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
-  console.log(stageNumber);
 
   return (
     <DescWrapper>
