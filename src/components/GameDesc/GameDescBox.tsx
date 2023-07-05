@@ -19,8 +19,8 @@ const stageResultState = atom<StageResult>({
 const gptResultState = atom<GPTResult>({
   key: "gptResult",
   default: {
-    name: '',
-    description: '',
+    name: "",
+    description: "",
   },
 });
 
@@ -65,12 +65,12 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       console.log(response);
 
       let data = await response.json();
-      console.log('GameDescBox', data);
+      console.log("GameDescBox", data);
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
 
-      if (typeof data === 'string') {
+      if (typeof data === "string") {
         data = JSON.parse(data);
       }
 
@@ -102,8 +102,6 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       return updatedResult;
     });
   };
-
-  console.log(stageResult);
 
   return (
     <>
