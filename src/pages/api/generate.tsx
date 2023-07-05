@@ -1,6 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 import { NextApiRequest, NextApiResponse } from "next";
-import { log } from "console";
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
   basePath: "https://api.openai.com/v1",
@@ -40,7 +40,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           ].join("\n"),
         },
       ],
-      temperature: 0.5,
+      temperature: 0.4,
       frequency_penalty: 0,
       presence_penalty: 0,
     });

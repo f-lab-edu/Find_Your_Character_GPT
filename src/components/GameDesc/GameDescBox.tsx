@@ -90,7 +90,6 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       clickHandlerGPT();
       return;
     }
-
     setStageNumber(stageNumber !== 10 ? Number(stageNumber) + 1 : Number(stageNumber));
     setStageResult((prevResult: StageResult) => {
       const updatedResult: StageResult = { ...prevResult };
