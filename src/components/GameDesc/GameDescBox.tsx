@@ -109,7 +109,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
     if (stageNumber === 11) {
       clickHandlerGPT();
     }
-  }, [stageNumber, clickHandlerGPT]);
+  }, [stageNumber]);
 
   return (
     <>
