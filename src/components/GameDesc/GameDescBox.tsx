@@ -5,6 +5,7 @@ import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
 import { useRouter } from "next/navigation";
 import { Loading } from "../loading/Loading";
+import { useEffect, useMemo } from "react";
 
 interface GPTResult {
   name: string;
@@ -84,23 +85,31 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       alert(error.message);
     }
   }
+  const stageNumberMemo = useMemo(
+    () =>
+      Object.values(stageResult).reduce((accumulator, currentValue) => {
+        return accumulator + currentValue;
+      }, 1),
+    [stageResult]
+  );
+  setStageNumber(stageNumberMemo);
 
   const clickHandler = (buttonState: string) => {
-    if (stageNumber === 10) {
-      clickHandlerGPT();
-      return;
-    }
-    setStageNumber(stageNumber !== 10 ? Number(stageNumber) + 1 : Number(stageNumber));
     setStageResult((prevResult: StageResult) => {
-      const updatedResult: StageResult = { ...prevResult };
-      if (updatedResult[buttonState]) {
-        updatedResult[buttonState] += 1;
-      } else {
-        updatedResult[buttonState] = 1;
+      const updatedResult = { ...prevResult };
+      if (!updatedResult[buttonState]) {
+        updatedResult[buttonState] = 0;
       }
+      updatedResult[buttonState] += 1;
       return updatedResult;
     });
   };
+
+  useEffect(() => {
+    if (stageNumber === 11) {
+      clickHandlerGPT();
+    }
+  }, [stageNumber, clickHandlerGPT]);
 
   return (
     <>
