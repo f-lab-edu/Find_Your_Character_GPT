@@ -1,6 +1,7 @@
 "use client";
 import "../styles/globals.css";
 import { Inter, Nanum_Myeongjo } from "next/font/google";
+import Script from "next/script";
 import { RecoilRoot } from "recoil";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -13,7 +14,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html className={nanumMyeongjo.className}>
       <head>
-        <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js" integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossOrigin="anonymous"></script>
+        <Script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js" integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossOrigin="anonymous"></Script>
       </head>
       <body>
         <StyledComponentsRegistry>
