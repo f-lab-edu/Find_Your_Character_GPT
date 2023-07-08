@@ -33,6 +33,7 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
       window.Kakao.Share.sendCustom({
         templateId: 94714,
       });
+
     }
   };
 
