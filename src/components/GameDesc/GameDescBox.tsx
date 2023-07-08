@@ -6,10 +6,14 @@ import { GlowText } from "../glowText/GlowText";
 import { useRouter } from "next/navigation";
 import { Loading } from "../loading/Loading";
 import { useEffect, useMemo } from "react";
+import axios from "axios";
 
 interface GPTResult {
+  prefix: string;
   name: string;
   description: string;
+  suitable: string;
+  unsuitable: string;
 }
 
 const stageResultState = atom<StageResult>({
@@ -17,11 +21,14 @@ const stageResultState = atom<StageResult>({
   default: {},
 });
 
-const gptResultState = atom<GPTResult>({
+export const gptResultState = atom<GPTResult>({
   key: "gptResult",
   default: {
+    prefix: "",
     name: "",
     description: "",
+    suitable: "",
+    unsuitable: "",
   },
 });
 
@@ -74,7 +81,6 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       if (typeof data === "string") {
         data = JSON.parse(data);
       }
-
       setGptResult(data);
       if (response.status === 200) {
         setLoadingOepn(false);
