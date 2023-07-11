@@ -98,7 +98,6 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       }, 1),
     [stageResult]
   );
-  setStageNumber(stageNumberMemo);
 
   const clickHandler = (buttonState: string) => {
     setStageResult((prevResult: StageResult) => {
@@ -112,10 +111,12 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
   };
 
   useEffect(() => {
+    setStageNumber(stageNumberMemo);
+
     if (stageNumber === 11) {
       clickHandlerGPT();
     }
-  }, [stageNumber]);
+  }, [stageNumberMemo, stageNumber]);
 
   return (
     <>
