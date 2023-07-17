@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 당신에게 어울리는 해리포터 캐릭터를 추천해드릴께요!
 
-## Getting Started
+## 사이트 URL
 
-First, run the development server:
+<a href="find-character-gpt.vercel.app">해리포터 캐릭터를 추천해드릴께요!</a>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 예시
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<img width="30%" src="https://github.com/f-lab-edu/Find_Character_GPT/assets/83911617/48c3035f-3a38-4e8d-97ed-5b50ecb6ba1c"/>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 프로젝트 소개
 
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello) is an endpoint that uses [Route Handlers](https://beta.nextjs.org/docs/routing/route-handlers). This endpoint can be edited in `app/api/hello/route.ts`.
+총 10가지의 stage가 제공되며 각 stage마다 선택지가 존재합니다.
+사용자가 선택한 선택지를 기준으로 ChatGPT가 사용자에게 어울리는 해리포터 캐릭터를 추천해줍니다.
+사용자의 해리포터 캐릭터와 대비하여 어울리는 캐릭터, 어울리지 않는 캐릭터 또한 추천해줍니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 사용기술
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- Next.js (ver.13)
+- styled-component
+- TypeScript
+- React.js
+  - Recoil
+- htmlToImage
+- openai
