@@ -6,11 +6,16 @@ interface FloatButtonProps {
   stageNumber: number;
   clickHandler: (buttonState: string) => void;
   buttonState: string;
+  clickHandlerGPT: () => void;
 }
 
-export const FloatButton = ({ buttonDesc, stageNumber, clickHandler, buttonState }: FloatButtonProps) => {
+export const FloatButton = ({ buttonDesc, stageNumber, clickHandler, buttonState, clickHandlerGPT }: FloatButtonProps) => {
   const handlerButtonClick = () => {
-    clickHandler(buttonState);
+    if (stageNumber < 10) {
+      clickHandler(buttonState);
+    } else {
+      clickHandlerGPT();
+    }
   };
 
   return <FloatBtn onClick={handlerButtonClick}>{buttonDesc}</FloatBtn>;
