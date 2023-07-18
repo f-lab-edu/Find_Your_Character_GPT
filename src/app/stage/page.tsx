@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { styled } from "styled-components";
@@ -8,7 +8,7 @@ import questions from "../../question.json";
 import { stageNumberState } from "../../components/GameDesc/GameDescBox";
 
 export default function StagePage() {
-  const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
+  const stageNumber = useRecoilValue<number>(stageNumberState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
 
   return (

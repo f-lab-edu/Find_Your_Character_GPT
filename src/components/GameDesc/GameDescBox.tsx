@@ -6,7 +6,6 @@ import { GlowText } from "../glowText/GlowText";
 import { useRouter } from "next/navigation";
 import { Loading } from "../loading/Loading";
 import { useEffect, useMemo } from "react";
-import axios from "axios";
 
 interface GPTResult {
   prefix: string;
@@ -70,10 +69,8 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
         },
         body: JSON.stringify({ value: stageResult }),
       });
-      console.log(response);
 
       let data = await response.json();
-      console.log("GameDescBox", data);
       if (response.status !== 200) {
         throw data.error || new Error(`Request failed with status ${response.status}`);
       }
@@ -112,10 +109,6 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
 
   useEffect(() => {
     setStageNumber(stageNumberMemo);
-
-    if (stageNumber === 11) {
-      clickHandlerGPT();
-    }
   }, [stageNumberMemo, stageNumber]);
 
   return (
@@ -137,7 +130,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
           <Desc>{desc}</Desc>
           <ButtonBox>
             {buttonDesc?.map((choice, i) => (
-              <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} />
+              <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} clickHandlerGPT={clickHandlerGPT} />
             ))}
           </ButtonBox>
           {loadingOpen && <Loading />}
