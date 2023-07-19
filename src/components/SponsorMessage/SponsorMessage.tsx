@@ -6,7 +6,7 @@ export const SponsorMessage = () => {
   return (
     <SponsorText>
       이 서비스는{" "}
-      <a href="https://f-lab.kr/">
+      <a href="https://f-lab.kr/" target="_blank">
         <Image src="/img/logo.svg" alt="F-LAB logo" width={30} height={20} />
         F-Lab
       </a>
