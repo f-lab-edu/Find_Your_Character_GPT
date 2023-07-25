@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import { Inter, Nanum_Myeongjo } from "next/font/google";
 import Script from "next/script";
 import { RecoilRoot } from "recoil";
+import { Analytics } from "@vercel/analytics/react";
 
 const inter = Inter({ subsets: ["latin"] });
 const nanumMyeongjo = Nanum_Myeongjo({ subsets: ["latin"], weight: ["400", "700", "800"] });
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <StyleWrapper>{children}</StyleWrapper>
           </RecoilRoot>
         </StyledComponentsRegistry>
+        <Analytics />
       </body>
     </html>
   );
