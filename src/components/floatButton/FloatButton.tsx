@@ -3,19 +3,13 @@ import styled from "styled-components";
 interface FloatButtonProps {
   buttonDesc: string;
   buttonIndex: number;
-  stageNumber: number;
   clickHandler: (buttonState: string) => void;
   buttonState: string;
-  clickHandlerGPT: () => void;
 }
 
-export const FloatButton = ({ buttonDesc, stageNumber, clickHandler, buttonState, clickHandlerGPT }: FloatButtonProps) => {
+export const FloatButton = ({ buttonDesc, clickHandler, buttonState }: FloatButtonProps) => {
   const handlerButtonClick = () => {
-    if (stageNumber < 10) {
-      clickHandler(buttonState);
-    } else {
-      clickHandlerGPT();
-    }
+    clickHandler(buttonState);
   };
 
   return <FloatBtn onClick={handlerButtonClick}>{buttonDesc}</FloatBtn>;

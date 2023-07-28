@@ -80,8 +80,8 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
       }
       setGptResult(data);
       if (response.status === 200) {
-        setLoadingOepn(false);
         router.push("/result");
+        setLoadingOepn(false);
       }
     } catch (error: any) {
       console.error(error);
@@ -109,6 +109,9 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
 
   useEffect(() => {
     setStageNumber(stageNumberMemo);
+    if (stageNumber > 10) {
+      clickHandlerGPT();
+    }
   }, [stageNumberMemo, stageNumber]);
 
   return (
@@ -130,7 +133,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
           <Desc>{desc}</Desc>
           <ButtonBox>
             {buttonDesc?.map((choice, i) => (
-              <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} stageNumber={stageNumber} clickHandler={clickHandler} buttonState={choice.state} clickHandlerGPT={clickHandlerGPT} />
+              <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} clickHandler={clickHandler} buttonState={choice.state} />
             ))}
           </ButtonBox>
           {loadingOpen && <Loading />}
