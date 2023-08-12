@@ -16,6 +16,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html className={nanumMyeongjo.className}>
       <head>
         <title>Find My Character</title>
+        <meta property="og:title" content="Find your Harry poter chracter" />
+        <meta property="og:description" content="당신과 어울리는 해리포터 캐릭터를 찾아드릴께요!" />
+        <meta property="og:url" content="https://find-character-gpt.vercel.app" />
+        <meta property="og:image" content="https://find-character-gpt.vercel.app/img/harry.jpeg" />
         <link rel="icon" href="/img/harrypoterFavicon.png" />
         <Script src="https://t1.kakaocdn.net/kakao_js_sdk/2.2.0/kakao.min.js" integrity="sha384-x+WG2i7pOR+oWb6O5GV5f1KN2Ko6N7PTGPS7UlasYWNxZMKQA63Cj/B2lbUmUfuC" crossOrigin="anonymous"></Script>
       </head>
