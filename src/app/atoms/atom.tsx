@@ -37,3 +37,8 @@ export const loadingState = atom<boolean>({
   key: "loadingOpen",
   default: false,
 });
+
+export const connectedGPTState = atom<boolean>({
+  key: "connectedGPT",
+  default: false,
+});

@@ -1,19 +1,7 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
-import { useRouter } from "next/navigation";
-import { Loading } from "../loading/Loading";
-import { useEffect, useMemo } from "react";
-
-interface GPTResult {
-  prefix: string;
-  name: string;
-  description: string;
-  suitable: string;
-  unsuitable: string;
-}
 
 interface GameDescBoxProps {
   descHeader: string;

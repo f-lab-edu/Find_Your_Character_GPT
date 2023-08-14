@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { gptResultState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
+import { connectedGPTState, gptResultState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { useRouter } from "next/navigation";
 
 type StageResult = {
@@ -10,6 +10,7 @@ type StageResult = {
 export default function useStageNumber() {
   const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
   const stageResult = useRecoilValue<StageResult>(stageResultState);
+  const setConnectedGPT = useSetRecoilState<boolean>(connectedGPTState);
   const stageResultMemo = useMemo(
     () =>
       Object.values(stageResult).reduce((acc, cur) => {
@@ -20,6 +21,9 @@ export default function useStageNumber() {
 
   useEffect(() => {
     setStageNumber(stageResultMemo);
+    if (stageNumber > 10) {
+      setConnectedGPT(true);
+    }
   }, [stageResultMemo, stageNumber]);
 
   return { stageResultMemo };

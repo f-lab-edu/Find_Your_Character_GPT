@@ -1,11 +1,9 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { useEffect } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { styled } from "styled-components";
-import { useRouter } from "next/navigation";
-import { gptResultState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
-// import { stageNumberMemo, useStageNumberMemo } from "../hooks/hooks";
+import { connectedGPTState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { Loading } from "@/components/loading/Loading";
@@ -17,22 +15,19 @@ type StageResult = {
 };
 
 export default function StagePage() {
-  const router = useRouter();
-  const setGptResult = useSetRecoilState(gptResultState);
   const stageResult = useRecoilValue<StageResult>(stageResultState);
-  const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
-  const [loadingOpen, setLoadingOpen] = useRecoilState<boolean>(loadingState);
-  const [gptCall, setGptCall] = useState<boolean>(false);
+  const stageNumber = useRecoilValue<number>(stageNumberState);
+  const loadingOpen = useRecoilValue<boolean>(loadingState);
+  const connectedGPT = useRecoilValue<boolean>(connectedGPTState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
   const { stageResultMemo } = useStageNumber();
   const { HandlerGPT } = useGPTHandler();
 
   useEffect(() => {
-    if (stageNumber > 10 && !gptCall) {
-      setGptCall(true);
+    if (connectedGPT === true) {
       HandlerGPT(stageResult);
     }
-  }, [stageResultMemo, stageResult, HandlerGPT, gptCall]);
+  }, [stageNumber, connectedGPT]);
 
   return (
     <>
