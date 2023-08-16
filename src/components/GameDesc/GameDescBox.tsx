@@ -8,9 +8,10 @@ interface GameDescBoxProps {
   desc?: string;
   startButtonDesc?: string;
   buttonDesc: { text: string; state: string }[] | undefined;
+  clickHandler: (buttonState: string) => void;
 }
 
-export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: GameDescBoxProps) => {
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, clickHandler }: GameDescBoxProps) => {
   return (
     <>
       <GlowText size={40} desc={descHeader} />
@@ -30,7 +31,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
           <Desc>{desc}</Desc>
           <ButtonBox>
             {buttonDesc?.map((choice, i) => (
-              <FloatButton buttonDesc={choice.text} key={i} buttonState={choice.state} />
+              <FloatButton buttonDesc={choice.text} key={i} buttonState={choice.state} clickHandler={clickHandler} />
             ))}
           </ButtonBox>
         </>

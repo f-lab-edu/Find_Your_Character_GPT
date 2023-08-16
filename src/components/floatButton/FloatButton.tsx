@@ -1,30 +1,12 @@
-import { stageResultState } from "@/app/atoms/atom";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 interface FloatButtonProps {
   buttonDesc: string;
   buttonState: string;
+  clickHandler: (buttonState: string) => void;
 }
 
-type StageResult = {
-  [key: string]: number;
-};
-
-export const FloatButton = ({ buttonDesc, buttonState }: FloatButtonProps) => {
-  const setStageResult = useSetRecoilState<StageResult>(stageResultState);
-
-  const clickHandler = (buttonState: string) => {
-    setStageResult((prevResult: StageResult) => {
-      const updatedResult = { ...prevResult };
-      if (!updatedResult[buttonState]) {
-        updatedResult[buttonState] = 0;
-      }
-      updatedResult[buttonState] += 1;
-      return updatedResult;
-    });
-  };
-
+export const FloatButton = ({ buttonDesc, buttonState, clickHandler }: FloatButtonProps) => {
   return <FloatBtn onClick={() => clickHandler(buttonState)}>{buttonDesc}</FloatBtn>;
 };
 

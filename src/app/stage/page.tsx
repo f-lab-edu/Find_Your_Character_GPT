@@ -1,7 +1,7 @@
 "use client";
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 import { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { connectedGPTState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
@@ -15,25 +15,40 @@ type StageResult = {
 };
 
 export default function StagePage() {
-  const stageResult = useRecoilValue<StageResult>(stageResultState);
+  const [stageResult, setStageResult] = useRecoilState<StageResult>(stageResultState);
   const stageNumber = useRecoilValue<number>(stageNumberState);
+  const setStageNumber = useSetRecoilState<number>(stageNumberState);
   const loadingOpen = useRecoilValue<boolean>(loadingState);
   const connectedGPT = useRecoilValue<boolean>(connectedGPTState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
-  const { stageResultMemo } = useStageNumber();
+  // const { stageResultMemo } = useStageNumber();
   const { HandlerGPT } = useGPTHandler();
 
+  const clickHandler = (buttonState: string) => {
+    setStageResult((prevResult: StageResult) => {
+      const updatedResult = { ...prevResult };
+      if (!updatedResult[buttonState]) {
+        updatedResult[buttonState] = 0;
+      }
+      updatedResult[buttonState] += 1;
+      return updatedResult;
+    });
+  };
+
   useEffect(() => {
-    if (connectedGPT === true) {
+    const stageResultMemo = Object.values(stageResult).reduce((acc, cur) => acc + cur, 1);
+    setStageNumber(stageResultMemo);
+    console.log(stageResult);
+    if (stageNumber === 10) {
       HandlerGPT(stageResult);
     }
-  }, [stageNumber, connectedGPT]);
+  }, [stageResult]);
 
   return (
     <>
       <DescWrapper>
         <ProgressBar value={Number(stageNumber) * 10} />
-        <GameDescBox descHeader={`Stage${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} />
+        <GameDescBox descHeader={`Stage${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} clickHandler={clickHandler} />
       </DescWrapper>
       {loadingOpen && <Loading />}
     </>

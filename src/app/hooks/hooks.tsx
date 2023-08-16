@@ -24,7 +24,7 @@ export default function useStageNumber() {
     if (stageNumber > 10) {
       setConnectedGPT(true);
     }
-  }, [stageResultMemo, stageNumber]);
+  }, [stageResultMemo]);
 
   return { stageResultMemo };
 }
