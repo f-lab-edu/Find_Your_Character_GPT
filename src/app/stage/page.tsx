@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { loadingState, questionIndexState, stageNumberState, stageResultState } from "../atoms/atom";
+import { loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { Loading } from "@/components/loading/Loading";

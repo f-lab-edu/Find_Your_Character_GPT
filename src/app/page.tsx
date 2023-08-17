@@ -7,7 +7,7 @@ import { SponsorMessage } from "@/components/SponsorMessage/SponsorMessage";
 export default function Home() {
   return (
     <DescWrapper>
-      <GameDescBox descHeader={startPage.startHeader} startButtonDesc={startPage.startButton} buttonDesc={undefined} />
+      <GameDescBox descHeader={startPage.startHeader} startButtonDesc={startPage.startButton} buttonDesc={[]} />
       <SponsorMessage />
     </DescWrapper>
   );

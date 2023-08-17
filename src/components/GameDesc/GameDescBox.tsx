@@ -7,8 +7,8 @@ interface GameDescBoxProps {
   descHeader: string;
   desc?: string;
   startButtonDesc?: string;
-  buttonDesc: { text: string; state: string }[] | undefined;
-  clickHandler: (buttonState: string) => void;
+  buttonDesc?: { text: string; state: string }[] | undefined;
+  clickHandler?: (buttonState: string) => void;
 }
 
 export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, clickHandler }: GameDescBoxProps) => {
@@ -31,7 +31,7 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, cli
           <Desc>{desc}</Desc>
           <ButtonBox>
             {buttonDesc?.map((choice, i) => (
-              <FloatButton buttonDesc={choice.text} key={i} buttonState={choice.state} clickHandler={clickHandler} />
+              <FloatButton buttonDesc={choice.text} key={i} buttonState={choice.state} clickHandler={clickHandler ? (state: string) => clickHandler(state) : undefined} />
             ))}
           </ButtonBox>
         </>

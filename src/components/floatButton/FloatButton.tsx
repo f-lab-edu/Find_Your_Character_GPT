@@ -3,11 +3,11 @@ import styled from "styled-components";
 interface FloatButtonProps {
   buttonDesc: string;
   buttonState: string;
-  clickHandler: (buttonState: string) => void;
+  clickHandler?: (buttonState: string) => void;
 }
 
 export const FloatButton = ({ buttonDesc, buttonState, clickHandler }: FloatButtonProps) => {
-  return <FloatBtn onClick={() => clickHandler(buttonState)}>{buttonDesc}</FloatBtn>;
+  return <FloatBtn onClick={() => clickHandler && clickHandler(buttonState)}>{buttonDesc}</FloatBtn>;
 };
 
 const FloatBtn = styled.button`
