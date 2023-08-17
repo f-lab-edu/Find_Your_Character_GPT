@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { connectedGPTState, gptResultState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
+import { gptResultState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { useRouter } from "next/navigation";
 
 type StageResult = {
@@ -10,8 +10,7 @@ type StageResult = {
 export default function useStageNumber() {
   const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
   const stageResult = useRecoilValue<StageResult>(stageResultState);
-  const setConnectedGPT = useSetRecoilState<boolean>(connectedGPTState);
-  const stageResultMemo = useMemo(
+  const stateResultTotalSum = useMemo(
     () =>
       Object.values(stageResult).reduce((acc, cur) => {
         return acc + cur;
@@ -19,14 +18,7 @@ export default function useStageNumber() {
     [stageResult]
   );
 
-  useEffect(() => {
-    setStageNumber(stageResultMemo);
-    if (stageNumber > 10) {
-      setConnectedGPT(true);
-    }
-  }, [stageResultMemo]);
-
-  return { stageResultMemo };
+  return { stateResultTotalSum };
 }
 
 export function useGPTHandler() {
@@ -34,7 +26,7 @@ export function useGPTHandler() {
   const [loadingOpen, setLoadingOpen] = useRecoilState<boolean>(loadingState);
   const setGptResult = useSetRecoilState(gptResultState);
 
-  async function HandlerGPT(stageResult: {}) {
+  async function gptRequestHandler(stageResult: {}) {
     try {
       setLoadingOpen(true);
       const response = await fetch("/api/generate", {
@@ -64,5 +56,5 @@ export function useGPTHandler() {
     }
   }
 
-  return { HandlerGPT, loadingOpen };
+  return { gptRequestHandler, loadingOpen };
 }

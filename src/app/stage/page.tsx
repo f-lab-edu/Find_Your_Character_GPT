@@ -1,9 +1,9 @@
 "use client";
-import React, { useCallback, useMemo } from "react";
+import React from "react";
 import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { connectedGPTState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
+import { loadingState, questionIndexState, stageNumberState, stageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { Loading } from "@/components/loading/Loading";
@@ -19,12 +19,12 @@ export default function StagePage() {
   const stageNumber = useRecoilValue<number>(stageNumberState);
   const setStageNumber = useSetRecoilState<number>(stageNumberState);
   const loadingOpen = useRecoilValue<boolean>(loadingState);
-  const connectedGPT = useRecoilValue<boolean>(connectedGPTState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
-  // const { stageResultMemo } = useStageNumber();
-  const { HandlerGPT } = useGPTHandler();
+  const { stateResultTotalSum } = useStageNumber();
+  const { gptRequestHandler } = useGPTHandler();
 
   const clickHandler = (buttonState: string) => {
+    setStageNumber(stageNumber + 1);
     setStageResult((prevResult: StageResult) => {
       const updatedResult = { ...prevResult };
       if (!updatedResult[buttonState]) {
@@ -33,16 +33,11 @@ export default function StagePage() {
       updatedResult[buttonState] += 1;
       return updatedResult;
     });
-  };
 
-  useEffect(() => {
-    const stageResultMemo = Object.values(stageResult).reduce((acc, cur) => acc + cur, 1);
-    setStageNumber(stageResultMemo);
-    console.log(stageResult);
-    if (stageNumber === 10) {
-      HandlerGPT(stageResult);
+    if (stateResultTotalSum === 10) {
+      gptRequestHandler(stageResult);
     }
-  }, [stageResult]);
+  };
 
   return (
     <>
