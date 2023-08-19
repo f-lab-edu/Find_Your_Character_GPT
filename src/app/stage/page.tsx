@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import { useEffect } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { loadingState, stageNumberState, stageResultState } from "../atoms/atom";
@@ -8,7 +7,7 @@ import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { Loading } from "@/components/loading/Loading";
 import questions from "../../question.json";
-import useStageNumber, { useGPTHandler } from "../hooks/hooks";
+import { useGPTHandler } from "../hooks/hooks";
 
 type StageResult = {
   [key: string]: number;
@@ -20,23 +19,23 @@ export default function StagePage() {
   const setStageNumber = useSetRecoilState<number>(stageNumberState);
   const loadingOpen = useRecoilValue<boolean>(loadingState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
-  const { stateResultTotalSum } = useStageNumber();
   const { gptRequestHandler } = useGPTHandler();
 
   const clickHandler = (buttonState: string) => {
-    setStageNumber(stageNumber + 1);
-    setStageResult((prevResult: StageResult) => {
-      const updatedResult = { ...prevResult };
-      if (!updatedResult[buttonState]) {
-        updatedResult[buttonState] = 0;
-      }
-      updatedResult[buttonState] += 1;
-      return updatedResult;
-    });
+    setStageNumber((prev) => prev + 1);
 
-    if (stateResultTotalSum === 10) {
-      gptRequestHandler(stageResult);
+    const updatedResult = { ...stageResult };
+    if (!updatedResult[buttonState]) {
+      updatedResult[buttonState] = 0;
     }
+    updatedResult[buttonState] += 1;
+
+    const stageResultSum = Object.values(updatedResult).reduce((acc, cur) => acc + cur, 0);
+    if (stageResultSum === 10) {
+      gptRequestHandler(updatedResult);
+    }
+
+    setStageResult(updatedResult);
   };
 
   return (

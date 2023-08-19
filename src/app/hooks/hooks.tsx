@@ -1,25 +1,6 @@
-import { useEffect, useMemo } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { gptResultState, loadingState, stageNumberState, stageResultState } from "../atoms/atom";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { gptResultState, loadingState } from "../atoms/atom";
 import { useRouter } from "next/navigation";
-
-type StageResult = {
-  [key: string]: number;
-};
-
-export default function useStageNumber() {
-  const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
-  const stageResult = useRecoilValue<StageResult>(stageResultState);
-  const stateResultTotalSum = useMemo(
-    () =>
-      Object.values(stageResult).reduce((acc, cur) => {
-        return acc + cur;
-      }, 1),
-    [stageResult]
-  );
-
-  return { stateResultTotalSum };
-}
 
 export function useGPTHandler() {
   const router = useRouter();
