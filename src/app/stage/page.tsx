@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilCallback, useRecoilValue } from "recoil";
 import { styled } from "styled-components";
 import { loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
@@ -9,34 +9,38 @@ import { Loading } from "@/components/loading/Loading";
 import questions from "../../question.json";
 import { useGPTHandler } from "../hooks/hooks";
 
-type StageResult = {
-  [key: string]: number;
-};
-
 export default function StagePage() {
-  const [stageResult, setStageResult] = useRecoilState<StageResult>(stageResultState);
   const stageNumber = useRecoilValue<number>(stageNumberState);
-  const setStageNumber = useSetRecoilState<number>(stageNumberState);
   const loadingOpen = useRecoilValue<boolean>(loadingState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
   const { gptRequestHandler } = useGPTHandler();
 
-  const clickHandler = (buttonState: string) => {
-    setStageNumber((prev) => prev + 1);
+  const clickHandler = useRecoilCallback(({ snapshot, set }) => (buttonState: string) => {
+    set(stageNumberState, (prev) => {
+      if (prev === 10) {
+        return 10;
+      }
+      return prev + 1;
+    });
 
-    const updatedResult = { ...stageResult };
+    // atom의 stageResultState의 값을 가져온다. = 현재 stateResult의 값
+    const currentStageResult = snapshot.getLoadable(stageResultState).getValue();
+    const updatedResult = { ...currentStageResult };
+
     if (!updatedResult[buttonState]) {
       updatedResult[buttonState] = 0;
     }
     updatedResult[buttonState] += 1;
 
     const stageResultSum = Object.values(updatedResult).reduce((acc, cur) => acc + cur, 0);
+
     if (stageResultSum === 10) {
       gptRequestHandler(updatedResult);
+    } else {
+      // stageResultSum이 10이 아닐경우는 새로운 stageResult값을 업데이트한다.
+      set(stageResultState, updatedResult);
     }
-
-    setStageResult(updatedResult);
-  };
+  });
 
   return (
     <>
