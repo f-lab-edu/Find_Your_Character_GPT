@@ -15,12 +15,6 @@ interface ContentFontProp {
 }
 export default function ResultPage() {
   const gptResult = useRecoilValue(gptResultState);
-  // const result = JSON.parse(gptResult)
-
-  // const stringResult = JSON.stringify(gptResult);
-  // const encoded = encodeURIComponent(stringResult);
-  // console.log(encoded);
-
   const [modalOpen, setModalOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const handleDownload = useCallback(() => {
@@ -75,26 +69,42 @@ const ResultBox = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 600px;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 900px;
   border-radius: 20px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("img/harry.jpeg");
   background-position: center;
   background-size: cover;
   overflow-y: scroll;
 
+  @media (max-width: 375px) {
+    border-radius: 0;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }
 `;
 const ShareBox = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-end;
   width: 100%;
   height: 50px;
+  margin-top: 30px;
+
+  @media (max-width: 375px) {
+    margin-top: 0;
+    height: 40px;
+  }
+
   button {
     width: 90px;
     height: 30px;
+    position: absolute;
+    top: 20px;
     margin-right: 20px;
     font-weight: 600;
     font-size: 15px;
@@ -113,7 +123,16 @@ const ShareBox = styled.div`
       will-change: transform;
       box-shadow: 0px 5px 5px -2px rgba(0, 0, 0, 0.25);
     }
+
     @media (max-width: 700px) {
+      width: 70px;
+      height: 30px;
+      font-size: 10px;
+    }
+
+    @media (max-width: 375px) {
+      top: 20px;
+      width: 50px;
       height: 30px;
       font-size: 10px;
     }
