@@ -8,7 +8,7 @@ import { ResultButton } from "../../components/floatButton/ResultButton";
 import { ShareModal } from "../../components/shareModal/ShareModal";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
-import { gptResultState } from "@/components/GameDesc/GameDescBox";
+import { gptResultState } from "../atoms/atom";
 
 interface ContentFontProp {
   size: number;
@@ -61,16 +61,6 @@ export default function ResultPage() {
           </SimilarBox>
         </SimilarContainer>
         <ButtonBox>
-          {/* <ResultButton
-            clickHandler={() => {
-              setModalOpen(true);
-            }}
-            buttonDesc="공유하기"
-          />
-          <ResultButton
-            clickHandler={handleDownload}
-            buttonDesc="다운로드"
-          /> */}
           <Link href="/">
             <ResultButton buttonDesc="다시하기" />
           </Link>

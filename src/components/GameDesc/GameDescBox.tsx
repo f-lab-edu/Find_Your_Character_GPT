@@ -1,119 +1,17 @@
 import { styled } from "styled-components";
 import { FloatButton } from "../floatButton/FloatButton";
 import { StartButton } from "../floatButton/StartButton";
-import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import { GlowText } from "../glowText/GlowText";
-import { useRouter } from "next/navigation";
-import { Loading } from "../loading/Loading";
-import { useEffect, useMemo } from "react";
-
-interface GPTResult {
-  prefix: string;
-  name: string;
-  description: string;
-  suitable: string;
-  unsuitable: string;
-}
-
-const stageResultState = atom<StageResult>({
-  key: "stageResult",
-  default: {},
-});
-
-export const gptResultState = atom<GPTResult>({
-  key: "gptResult",
-  default: {
-    prefix: "",
-    name: "",
-    description: "",
-    suitable: "",
-    unsuitable: "",
-  },
-});
-
-export const stageNumberState = atom<number>({
-  key: "stageNumber",
-  default: 1,
-});
-
-export const loadingState = atom<boolean>({
-  key: "loadingOpen",
-  default: false,
-});
-
-type StageResult = {
-  [key: string]: number;
-};
 
 interface GameDescBoxProps {
   descHeader: string;
   desc?: string;
   startButtonDesc?: string;
-  buttonDesc: { text: string; state: string }[] | undefined;
+  buttonDesc?: { text: string; state: string }[] | undefined;
+  clickHandler?: (buttonState: string) => void;
 }
 
-export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: GameDescBoxProps) => {
-  const router = useRouter();
-  const setGptResult = useSetRecoilState(gptResultState);
-  const [stageResult, setStageResult] = useRecoilState<StageResult>(stageResultState);
-  const [stageNumber, setStageNumber] = useRecoilState<number>(stageNumberState);
-  const [loadingOpen, setLoadingOepn] = useRecoilState<boolean>(loadingState);
-
-  async function clickHandlerGPT() {
-    try {
-      setLoadingOepn(true);
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ value: stageResult }),
-      });
-
-      let data = await response.json();
-      if (response.status !== 200) {
-        throw data.error || new Error(`Request failed with status ${response.status}`);
-      }
-
-      if (typeof data === "string") {
-        data = JSON.parse(data);
-      }
-      setGptResult(data);
-      if (response.status === 200) {
-        router.push("/result");
-        setLoadingOepn(false);
-      }
-    } catch (error: any) {
-      console.error(error);
-      alert(error.message);
-    }
-  }
-  const stageNumberMemo = useMemo(
-    () =>
-      Object.values(stageResult).reduce((accumulator, currentValue) => {
-        return accumulator + currentValue;
-      }, 1),
-    [stageResult]
-  );
-
-  const clickHandler = (buttonState: string) => {
-    setStageResult((prevResult: StageResult) => {
-      const updatedResult = { ...prevResult };
-      if (!updatedResult[buttonState]) {
-        updatedResult[buttonState] = 0;
-      }
-      updatedResult[buttonState] += 1;
-      return updatedResult;
-    });
-  };
-
-  useEffect(() => {
-    setStageNumber(stageNumberMemo);
-    if (stageNumber > 10) {
-      clickHandlerGPT();
-    }
-  }, [stageNumberMemo, stageNumber]);
-
+export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc, clickHandler }: GameDescBoxProps) => {
   return (
     <>
       <GlowText size={40} desc={descHeader} />
@@ -133,10 +31,9 @@ export const GameDescBox = ({ descHeader, desc, startButtonDesc, buttonDesc }: G
           <Desc>{desc}</Desc>
           <ButtonBox>
             {buttonDesc?.map((choice, i) => (
-              <FloatButton buttonDesc={choice.text} buttonIndex={i} key={i} clickHandler={clickHandler} buttonState={choice.state} />
+              <FloatButton buttonDesc={choice.text} key={i} buttonState={choice.state} clickHandler={clickHandler ? (state: string) => clickHandler(state) : undefined} />
             ))}
           </ButtonBox>
-          {loadingOpen && <Loading />}
         </>
       )}
     </>

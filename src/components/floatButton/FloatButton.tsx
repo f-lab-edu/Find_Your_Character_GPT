@@ -2,17 +2,12 @@ import styled from "styled-components";
 
 interface FloatButtonProps {
   buttonDesc: string;
-  buttonIndex: number;
-  clickHandler: (buttonState: string) => void;
   buttonState: string;
+  clickHandler?: (buttonState: string) => void;
 }
 
-export const FloatButton = ({ buttonDesc, clickHandler, buttonState }: FloatButtonProps) => {
-  const handlerButtonClick = () => {
-    clickHandler(buttonState);
-  };
-
-  return <FloatBtn onClick={handlerButtonClick}>{buttonDesc}</FloatBtn>;
+export const FloatButton = ({ buttonDesc, buttonState, clickHandler }: FloatButtonProps) => {
+  return <FloatBtn onClick={() => clickHandler && clickHandler(buttonState)}>{buttonDesc}</FloatBtn>;
 };
 
 const FloatBtn = styled.button`
