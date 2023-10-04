@@ -6,6 +6,7 @@ import { loadingState, stageNumberState, stageResultState } from "../atoms/atom"
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { Loading } from "@/components/loading/Loading";
+import GoBackStageButton from "@/components/GoBackStageButton/GoBackStageButton";
 import questions from "../../question.json";
 import { useGPTHandler } from "../hooks/hooks";
 
@@ -45,6 +46,7 @@ export default function StagePage() {
   return (
     <>
       <DescWrapper>
+        {stageNumber > 1 ? <GoBackStageButton /> : null}
         <ProgressBar value={Number(stageNumber) * 10} />
         <GameDescBox descHeader={`Stage${stageNumber}`} desc={question} startButtonDesc={""} buttonDesc={choices} clickHandler={clickHandler} />
       </DescWrapper>
@@ -54,6 +56,7 @@ export default function StagePage() {
 }
 
 const DescWrapper = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
