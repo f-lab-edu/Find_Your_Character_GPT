@@ -1,11 +1,10 @@
-import { prevStageResultState, stageNumberState, stageResultState } from "@/app/atoms/atom";
+import { stageNumberState, stageResultState } from "@/app/atoms/atom";
 import React from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 export default function GoBackStageButton() {
   const setStageNumber = useSetRecoilState<number>(stageNumberState);
-  const prevStageResult = useRecoilValue(prevStageResultState);
   const setStageResult = useSetRecoilState(stageResultState);
 
   const clickHandler = () => {
@@ -16,7 +15,13 @@ export default function GoBackStageButton() {
       return prev - 1;
     });
 
-    setStageResult(prevStageResult);
+    setStageResult((prevResults) => {
+      if (prevResults.length > 1) {
+        const newResults = prevResults.slice(0, -1);
+        return newResults;
+      }
+      return prevResults;
+    });
   };
   return <BackButton onClick={clickHandler}>뒤로가기</BackButton>;
 }

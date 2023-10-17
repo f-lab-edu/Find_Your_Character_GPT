@@ -8,18 +8,14 @@ interface GPTResult {
   unsuitable: string;
 }
 
-type StageResult = {
+type StageResultElement = {
   [key: string]: number;
 };
+type StageResult = StageResultElement[];
 
 export const stageResultState = atom<StageResult>({
   key: "stageResult",
-  default: {},
-});
-
-export const prevStageResultState = atom<StageResult>({
-  key: "prevStageResult",
-  default: {},
+  default: [],
 });
 
 export const gptResultState = atom<GPTResult>({
