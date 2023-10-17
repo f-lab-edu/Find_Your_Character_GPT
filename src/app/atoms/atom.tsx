@@ -17,6 +17,11 @@ export const stageResultState = atom<StageResult>({
   default: {},
 });
 
+export const prevStageResultState = atom<StageResult>({
+  key: "prevStageResult",
+  default: {},
+});
+
 export const gptResultState = atom<GPTResult>({
   key: "gptResult",
   default: {

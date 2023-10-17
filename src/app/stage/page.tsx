@@ -1,8 +1,8 @@
 "use client";
 import React from "react";
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
-import { loadingState, stageNumberState, stageResultState } from "../atoms/atom";
+import { loadingState, stageNumberState, stageResultState, prevStageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { Loading } from "@/components/loading/Loading";
@@ -15,6 +15,7 @@ export default function StagePage() {
   const loadingOpen = useRecoilValue<boolean>(loadingState);
   const { question, choices } = stageNumber === 11 ? { question: undefined, choices: undefined } : questions[stageNumber - 1];
   const { gptRequestHandler } = useGPTHandler();
+  const setPrevStageResult = useSetRecoilState(prevStageResultState);
 
   const clickHandler = useRecoilCallback(({ snapshot, set }) => (buttonState: string) => {
     set(stageNumberState, (prev) => {
@@ -41,6 +42,8 @@ export default function StagePage() {
       // stageResultSum이 10이 아닐경우는 새로운 stageResult값을 업데이트한다.
       set(stageResultState, updatedResult);
     }
+    console.log("current 결과값", currentStageResult);
+    console.log(updatedResult);
   });
 
   return (
