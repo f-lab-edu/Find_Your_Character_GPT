@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useRecoilCallback, useRecoilValue } from "recoil";
+import { useRecoilCallback, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { styled } from "styled-components";
 import { loadingState, stageNumberState, stageResultState } from "../atoms/atom";
 import { ProgressBar } from "@/components/progressBar/ProgressBar";
@@ -25,22 +25,27 @@ export default function StagePage() {
     });
 
     // atom의 stageResultState의 값을 가져온다. = 현재 stateResult의 값
-    const currentStageResult = snapshot.getLoadable(stageResultState).getValue();
-    const updatedResult = { ...currentStageResult };
+    const currentStageResults = snapshot.getLoadable(stageResultState).getValue();
+    const lastStageResult = currentStageResults.length > 0 ? { ...currentStageResults[currentStageResults.length - 1] } : {};
 
-    if (!updatedResult[buttonState]) {
-      updatedResult[buttonState] = 0;
+    if (!lastStageResult[buttonState]) {
+      lastStageResult[buttonState] = 0;
     }
-    updatedResult[buttonState] += 1;
+    lastStageResult[buttonState] += 1;
 
-    const stageResultSum = Object.values(updatedResult).reduce((acc, cur) => acc + cur, 0);
+    const newStageResults = [...currentStageResults];
+    newStageResults.push(lastStageResult);
+    const stageResultSum = Object.values(lastStageResult).reduce((acc, cur) => acc + cur, 0);
 
     if (stageResultSum === 10) {
-      gptRequestHandler(updatedResult);
+      gptRequestHandler(lastStageResult);
     } else {
       // stageResultSum이 10이 아닐경우는 새로운 stageResult값을 업데이트한다.
-      set(stageResultState, updatedResult);
+      set(stageResultState, newStageResults);
     }
+
+    console.log(currentStageResults);
+    console.log(newStageResults);
   });
 
   return (
