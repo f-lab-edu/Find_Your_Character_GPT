@@ -43,9 +43,6 @@ export default function StagePage() {
       // stageResultSum이 10이 아닐경우는 새로운 stageResult값을 업데이트한다.
       set(stageResultState, newStageResults);
     }
-
-    console.log(currentStageResults);
-    console.log(newStageResults);
   });
 
   return (
