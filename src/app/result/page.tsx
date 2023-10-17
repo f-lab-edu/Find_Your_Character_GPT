@@ -7,8 +7,8 @@ import { ImageBox } from "../../components/imageBox/ImageBox";
 import { ResultButton } from "../../components/floatButton/ResultButton";
 import { ShareModal } from "../../components/shareModal/ShareModal";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
-import { gptResultState } from "../atoms/atom";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { gptResultState, stageNumberState, stageResultState } from "../atoms/atom";
 
 interface ContentFontProp {
   size: number;
@@ -16,6 +16,8 @@ interface ContentFontProp {
 export default function ResultPage() {
   const gptResult = useRecoilValue(gptResultState);
   const [modalOpen, setModalOpen] = useState(false);
+  const setStageResult = useSetRecoilState(stageResultState);
+  const setStageNumber = useSetRecoilState(stageNumberState);
   const ref = useRef<HTMLDivElement>(null);
   const handleDownload = useCallback(() => {
     toPng(ref.current as HTMLDivElement, { quality: 0.95 }).then((dataUrl) => {
@@ -26,6 +28,10 @@ export default function ResultPage() {
       link.click();
     });
   }, []);
+  const resetButtonHandler = () => {
+    setStageNumber(1);
+    setStageResult([]);
+  };
   return (
     <>
       <ResultBox ref={ref}>
@@ -56,7 +62,7 @@ export default function ResultPage() {
         </SimilarContainer>
         <ButtonBox>
           <Link href="/">
-            <ResultButton buttonDesc="다시하기" />
+            <ResultButton buttonDesc="다시하기" clickHandler={resetButtonHandler} />
           </Link>
         </ButtonBox>
       </ResultBox>
