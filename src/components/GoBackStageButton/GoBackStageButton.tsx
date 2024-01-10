@@ -28,19 +28,44 @@ export default function GoBackStageButton() {
 
 const BackButton = styled.button`
   position: absolute;
-  top: 20px;
-  left: 30px;
+  top: 2vh;
+  left: 2vw;
   color: #ffffff;
   background-color: #000000;
   border: 2px solid #ffffff;
   border-radius: 10px;
-  width: 8vw;
-  height: 3vw;
-  font-size: 1.2vw;
+  width: 10vw;
+  height: 3vh;
+  font-size: 1vw;
   font-weight: bold;
   cursor: pointer;
   &:hover {
     background-color: #ffffff;
     color: #000000;
+  }
+  @media (max-width: 980px) {
+    width: 9vw;
+    height: 3vh;
+    font-size: 1.6vw;
+  }
+  @media (max-width: 780px) {
+    width: 9vw;
+    height: 4vh;
+    font-size: 1.8vw;
+  }
+  @media (max-width: 580px) {
+    width: 13vw;
+    height: 2.5vh;
+    font-size: 1.6vw;
+  }
+  @media (max-width: 480px) {
+    width: 10vw;
+    height: 2vh;
+    font-size: 1.5vw;
+  }
+  @media (max-width: 380px) {
+    width: 15vw;
+    height: 2vh;
+    font-size: 1.5vw;
   }
 `;
