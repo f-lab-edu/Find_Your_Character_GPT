@@ -13,9 +13,8 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
       setModalOpen(false);
     }
   };
-  const baseUrl = "localhost:3000";
+  const baseUrl = "https://find-character-gpt-alpha.vercel.app/";
   const location = usePathname();
-  console.log(location);
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -33,7 +32,6 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
       window.Kakao.Share.sendCustom({
         templateId: 94714,
       });
-
     }
   };
 
@@ -56,9 +54,7 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
             <button onClick={shareKakao}>
               <img src="/img/kakao.png" alt="카카오톡공유" />
             </button>
-            <button
-              onClick={() => handleCopyClipBoard(`${baseUrl}${location}`)}
-            >
+            <button onClick={() => handleCopyClipBoard(`${baseUrl}`)}>
               <img src="/img/link.svg" alt="링크공유" />
             </button>
             <button onClick={clickHandler}>
@@ -123,7 +119,6 @@ const ModalBody = styled.div`
     }
   }
   button:nth-child(3) {
-    
     img {
       width: 50px;
       background-color: #1d46ca;
