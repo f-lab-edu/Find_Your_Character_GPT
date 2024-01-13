@@ -28,13 +28,13 @@ export default function GoBackStageButton() {
 
 const BackButton = styled.button`
   position: absolute;
-  top: 2vh;
+  top: 3vh;
   left: 2vw;
   color: #ffffff;
   background-color: #000000;
   border: 2px solid #ffffff;
   border-radius: 10px;
-  width: 10vw;
+  width: 6vw;
   height: 3vh;
   font-size: 1vw;
   font-weight: bold;
