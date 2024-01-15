@@ -13,7 +13,7 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
       setModalOpen(false);
     }
   };
-  const baseUrl = "https://find-character-gpt-alpha.vercel.app/";
+  const baseUrl = "https://find-character-gpt.vercel.app/";
   const location = usePathname();
   const handleCopyClipBoard = async (text: string) => {
     try {
