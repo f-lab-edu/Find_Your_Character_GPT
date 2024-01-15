@@ -2,13 +2,11 @@
 import { GameDescBox } from "@/components/GameDesc/GameDescBox";
 import { startPage } from "../../constant/constants";
 import { styled } from "styled-components";
-import { SponsorMessage } from "@/components/SponsorMessage/SponsorMessage";
 
 export default function Home() {
   return (
     <DescWrapper>
       <GameDescBox descHeader={startPage.startHeader} startButtonDesc={startPage.startButton} buttonDesc={[]} />
-      <SponsorMessage />
     </DescWrapper>
   );
 }
