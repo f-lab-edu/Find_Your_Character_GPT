@@ -2,7 +2,7 @@
 
 ## 사이트 URL
 
-<a href="https://find-character-gpt-alpha.vercel.app">해리포터 캐릭터를 추천해드릴께요!</a>
+<a href="https://find-character-gpt.vercel.app/">해리포터 캐릭터를 추천해드릴께요!</a>
 
 ## 예시
 
