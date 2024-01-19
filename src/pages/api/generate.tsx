@@ -41,7 +41,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           ].join("\n"),
         },
       ],
-      temperature: 0.5,
+      temperature: 0.7,
       frequency_penalty: 0,
       presence_penalty: 0,
     });
