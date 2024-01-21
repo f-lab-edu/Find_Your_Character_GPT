@@ -1,5 +1,6 @@
 import { Configuration, OpenAIApi } from "openai";
 import { NextApiRequest, NextApiResponse } from "next";
+import { OpenAIStream } from "ai";
 
 // Edge Function으로 설정합니다.
 export const config = {
@@ -64,8 +65,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       temperature: 0.7,
       frequency_penalty: 0,
       presence_penalty: 0,
+      stream: true,
     });
 
+    const stream = OpenAIStream(completion);
     // OpenAI API로부터 결과를 받아 클라이언트에게 전송
     // if (completion.data.choices.length > 0 && completion.data.choices[0].message) {
     //   res.status(200).json(completion.data.choices[0].message.content);
