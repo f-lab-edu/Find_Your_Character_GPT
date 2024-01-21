@@ -1,12 +1,29 @@
 import { Configuration, OpenAIApi } from "openai";
 import { NextApiRequest, NextApiResponse } from "next";
 
+// Edge Function으로 설정합니다.
+export const config = {
+  runtime: "edge",
+};
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
   basePath: "https://api.openai.com/v1",
 });
 const openai = new OpenAIApi(configuration);
+
+async function parseRequestBody(req: NextApiRequest) {
+  const chunks = [];
+  for await (const chunk of req.body) {
+    chunks.push(chunk);
+  }
+  const a = Buffer.concat(chunks).toString("utf-8");
+  return JSON.parse(a);
+}
+
+// API 요청을 처리하는 핸들러 함수
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // OpenAI API 키가 설정되지 않은 경우 에러 처리
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
@@ -15,9 +32,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     });
     return;
   }
-  const value: string[] = req.body?.value ?? [];
-  console.log("stat value : ", value);
 
+  // 요청에서 'value' 파라미터 추출
+  // const value: string[] = req.body?.value ?? [];
+  // console.log("state value : ", value);
+  const value = await parseRequestBody(req);
+  // 'value' 파라미터가 비어있는 경우 에러 처리
   if (value.length === 0) {
     res.status(400).json({
       error: {
@@ -46,21 +66,30 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       presence_penalty: 0,
     });
 
+    // OpenAI API로부터 결과를 받아 클라이언트에게 전송
+    // if (completion.data.choices.length > 0 && completion.data.choices[0].message) {
+    //   res.status(200).json(completion.data.choices[0].message.content);
+    // } else {
+    //   res.status(500).json({
+    //     error: {
+    //       message: "No completion choices available",
+    //     },
+    //   });
+    // }
     if (completion.data.choices.length > 0 && completion.data.choices[0].message) {
-      res.status(200).json(completion.data.choices[0].message.content);
+      return new Response(JSON.stringify(completion.data.choices[0].message.content), { status: 200 });
     } else {
-      res.status(500).json({
-        error: {
-          message: "No completion choices available",
-        },
-      });
+      return new Response(JSON.stringify({ error: "No completion choices available" }), { status: 500 });
     }
   } catch (error) {
+    // OpenAI API 요청 중 발생한 에러 처리
+    // console.error(`Error with OpenAI API request: ${(error as Error).message}`);
+    // res.status(500).json({
+    //   error: {
+    //     message: "An error occurred during your request.",
+    //   },
+    // });
     console.error(`Error with OpenAI API request: ${(error as Error).message}`);
-    res.status(500).json({
-      error: {
-        message: "An error occurred during your request.",
-      },
-    });
+    return new Response(JSON.stringify({ error: "An error occurred during your request." }), { status: 500 });
   }
 }
