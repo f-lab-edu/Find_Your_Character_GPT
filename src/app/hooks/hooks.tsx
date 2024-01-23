@@ -15,7 +15,7 @@ export function useGPTHandler() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ value: stageResult }),
+        body: JSON.stringify(stageResult),
       });
 
       let data = await response.json();
@@ -32,7 +32,7 @@ export function useGPTHandler() {
         setLoadingOpen(false);
       }
     } catch (error: any) {
-      console.error(error);
+      console.error("hooks에서 찍히는 error", error);
       alert(error.message);
     }
   }
