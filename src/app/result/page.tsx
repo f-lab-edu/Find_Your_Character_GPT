@@ -77,7 +77,8 @@ const ResultBox = styled.div`
   align-items: center;
   width: 100%;
   max-width: 1000px;
-  max-height: 900px;
+  max-height: 100vh;
+  padding-top: 3rem;
   border-radius: 20px;
   background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("img/harry.jpeg");
   background-position: center;
