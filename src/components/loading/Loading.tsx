@@ -5,16 +5,9 @@ import { keyframes, styled } from "styled-components";
 export const Loading = () => {
   return (
     <Overlay>
-      <GlowText>
-        Loading...
-      </GlowText>
+      <GlowText>Loading...</GlowText>
       <LottieContainer>
-        <Lottie
-          loop
-          animationData={loading}
-          play
-          style={{ width: 600, height: 560 }}
-        />
+        <Lottie className="lottie-animation" loop animationData={loading} play />
       </LottieContainer>
     </Overlay>
   );
@@ -42,14 +35,22 @@ const glow = keyframes`
   }
 `;
 const GlowText = styled.span`
-color: white;
-font-size: 50px;
-text-align: center;
-animation: ${glow} 1.5s ease-in-out infinite alternate;
-@media (max-width: 800px) {
+  color: white;
+  font-size: 50px;
+  text-align: center;
+  animation: ${glow} 1.5s ease-in-out infinite alternate;
+  @media (max-width: 800px) {
     font-size: 5vh;
-}
-`
+  }
+`;
 const LottieContainer = styled.div`
-    margin-top: -100px;
-`
+  .lottie-animation {
+    width: 600px;
+    height: 560px;
+
+    @media (max-width: 550px) {
+      width: 100%;
+      height: auto;
+    }
+  }
+`;
