@@ -1,4 +1,3 @@
-import { usePathname } from "next/navigation";
 import { Dispatch, useRef } from "react";
 import { styled } from "styled-components";
 
@@ -14,7 +13,6 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
     }
   };
   const baseUrl = "https://find-character-gpt.vercel.app/";
-  const location = usePathname();
   const handleCopyClipBoard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
@@ -27,10 +25,10 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
     if (window.Kakao) {
       const kakao = window.Kakao;
       if (!kakao.isInitialized()) {
-        kakao.init("09cf6a1eb058fa2ec9d087d892693240");
+        kakao.init(`${process.env.KAKAO_API_KEY}`);
       }
       window.Kakao.Share.sendCustom({
-        templateId: 94714,
+        templateId: 103767,
       });
     }
   };
