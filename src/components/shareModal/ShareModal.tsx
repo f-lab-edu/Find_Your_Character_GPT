@@ -25,6 +25,7 @@ export const ShareModal: React.FunctionComponent<ShareModalProps> = ({ setModalO
     if (window.Kakao) {
       const kakao = window.Kakao;
       if (!kakao.isInitialized()) {
+        console.log(process.env.KAKAO_API_KEY);
         kakao.init(`${process.env.KAKAO_API_KEY}`);
       }
       window.Kakao.Share.sendCustom({
