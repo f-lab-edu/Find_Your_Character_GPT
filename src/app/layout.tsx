@@ -15,6 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html className={nanumMyeongjo.className}>
       <head>
         <title>Find Your Character</title>
+        <meta name="description" content={"사용자가 선택한 선택지를 바탕으로 GPT엔진이 해리포터 캐릭터를 생성하여 사용자에게 추천해줍니다."} />
         <meta property="og:title" content="Find your Harry poter chracter" />
         <meta property="og:description" content="당신과 어울리는 해리포터 캐릭터를 찾아드릴께요!" />
         <meta property="og:url" content="https://find-character-gpt.vercel.app" />
